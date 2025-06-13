@@ -1,0 +1,139 @@
+.pu_volunteer_form_thumb {
+    position: relative;
+    margin-bottom: 80px;
+    @media #{$tab}{
+        margin-bottom: 40px;
+    }
+    .pu_volunteer_form_title {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 100px 70px;
+        @media #{$tab}{
+            padding: 30px;
+        }
+        @media #{$mobile}{
+            padding: 30px 0;
+            position: relative;
+        }
+    }
+
+    .sub_title {
+        background-color: #c81e4f;
+        color: $white;
+        display: inline-flex;
+        align-items: center;
+        font-size: 48px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 12px 30px;
+        margin-bottom: 0;
+        @media #{$tab}{
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .title {
+        font-size: 100px;
+        color: rgb(250, 247, 227);
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 0.967;
+        margin-bottom: 0;
+        margin-top: 7px;
+        @media #{$tab_device}{
+            font-size: 40px;
+        }
+        @media #{$mobile}{
+            font-size: 30px;
+            color: $heading_color;
+        }
+    }
+}
+
+.pu_volunteer_form_requirment {
+    padding: 55px 40px 60px 25px;
+    @media #{$tab}{
+        padding: 30px 10px;
+    }
+    @media #{$medium_device}{
+        padding: 30px 20px;
+    }
+    .title {
+        font-size: 30px;
+        color: rgb(54, 58, 87);
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1;
+        margin-bottom: 26px;
+    }
+
+    .description {
+        margin-bottom: 29px;
+        font-size: 16px;
+        color: #818181;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        margin-bottom: 44px;
+        li {
+            list-style: none;
+            font-size: 16px;
+            color: #818181;
+            margin-bottom: 8px;
+
+            i {
+                color: #c81e4f;
+                margin-right: 7px;
+            }
+        }
+    }
+
+    .pu_charety_org_info_wrapper {
+        border: 2px solid #f0eeec;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        margin-bottom: 18px;
+
+        .pu_icon {
+            padding: 28px 20px;
+            height: 100%;
+            position: relative;
+            left: auto;
+            top: auto;
+            transform: translateY(0);
+            border-right: 2px solid #f0eeec;
+
+            img {
+                max-width: 55px;
+            }
+        }
+
+        .pu_charety_org_info_inner {
+            padding: 20px;
+        }
+    }
+
+    .social_icon{
+        margin-top: 30px;
+        a {
+            font-size: 16px;
+            color: #1b1f2e;
+            display: inline-block;
+            margin-right: 8px;
+            padding: 11px 18px;
+            background-color: #f0eeec;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+    
+            &:hover {
+                background-color: #c81e4f;
+                color: #fff;
+            }
+        }
+    }
+}

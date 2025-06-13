@@ -1,0 +1,95 @@
+.pu_contacr_wrapper{
+    border: 2px solid #ebedf4;
+}
+.contact_form_title{
+    margin-bottom: 35px;
+    @media #{$tab}{
+        margin-bottom: 20px;
+    }
+    .sub_title{
+        font-size: 20px;
+        color: rgb(224, 122, 94);
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1;
+        margin-bottom: 0;
+    }
+    .title{
+        font-size: 60px;
+        font-weight: 700;
+        text-transform: uppercase;
+        @media #{$tab}{
+            font-size: 30px;
+        }
+        @media #{$medium_device}{
+            font-size: 35px;
+        }
+    }
+}
+.pu_contact_form_wrapper{
+    background-color: #f0eeec;
+    padding: 80px;
+    height: 100%;
+    @media #{$tab}{
+        padding: 50px 20px;
+    }
+    @media #{$medium_device}{
+        padding: 50px 30px;
+    }
+    .cu_input{
+        border: 1px solid #fff;
+        font-size: 16px;
+        color: #757575;
+        padding: 21px 46px;
+    }
+    .form-group{
+        margin-bottom: 20px;
+    }
+    textarea.cu_input{
+        width: 100%;
+        min-height: 180px;
+    }
+    
+}
+.pu_contact_info_wrapper{
+    padding: 80px 40px;
+    @media #{$tab}{
+        padding: 30px 20px;
+    }
+    @media #{$medium_device}{
+        padding: 50px 20px;
+    }
+    .social_icon{
+        margin-top: 15px;
+        a {
+            font-size: 16px;
+            color: #1b1f2e;
+            display: inline-block;
+            margin-right: 8px;
+            padding: 11px 18px;
+            background-color: #f0eeec;
+            transition: 0.3s;
+            &:hover{
+                background-color: $base_color_3;
+                color: $white;
+            }
+            @media #{$tab}{
+                margin-right: 4px;
+            }
+        }
+    }
+    .contact_page_info{
+        text-align: center;
+        margin-bottom: 37px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+    .info_title{
+        font-size: 18px;
+        font-family: $raj_font;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 3px;
+    }
+}

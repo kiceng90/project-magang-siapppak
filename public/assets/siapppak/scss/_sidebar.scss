@@ -1,0 +1,303 @@
+.single_sidebar_wrapper{
+    border: 2px solid #ededed;
+    padding: 40px;
+    margin-bottom: 40px;
+    @media #{$tab}{
+        padding: 25px;
+    }
+    @media #{$medium_device}{
+        padding: 25px;
+    }
+    &:last-child{
+        margin-bottom: 0;
+    }
+    .pu_sidebar_title{
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        position: relative;
+        padding-left: 50px;
+        margin-bottom: 0;
+        margin-bottom: 36px;
+        &:after{
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: $base_color_3;
+            height: 4px;
+            width: 18px;
+            border-radius: 3px;
+        }
+        &:before{
+            position: absolute;
+            content: "";
+            left: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: $base_color_3;
+            height: 4px;
+            width: 4px;
+            border-radius: 3px;
+        }
+    }
+    &.pu_admin_info{
+        text-align: center;
+        .pu_sidebar_title{
+            text-align: left;
+        }
+        .client_img{
+            margin-bottom: 26px;
+        }
+        .author_name{
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .author_details{
+            font-size: 14px;
+            line-height: 26px;
+        }
+        .social_icon{
+            margin-top: 16px;
+            a{
+                color: #636886;
+                margin: 0 9px;
+            }
+        }
+    }
+    &.pu_sidebar_search{
+        .pu_sidebar_search_form{
+            display: flex;
+            align-items: center;
+        }
+        .search_icon{
+            height: 60px;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #82b29a;
+            border: 1px solid #82b29a;
+            i{
+                color: $white;
+            }
+        }
+        input{
+            color: #251e5e;
+            font-size: 12px;
+            background-color: #f0f4f7;
+            padding: 19px 30px;
+            border: 1px solid #f0f4f7;
+            line-height: 20px;
+            width: 100%;
+            &::placeholder{
+                color: #251e5e;
+            }
+        }
+    }
+    &.pu_sidebar_feed{
+        .popular_post_inner{
+            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e1e6ff;
+            display: flex;
+            align-items: center;
+            &:last-child{
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: 0px solid transparent;
+            }
+        }
+        .pu_title{
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            a{
+                color: $heading_color;
+                &:hover{
+                    color: $base_color_3;
+                }
+            }
+        }
+        .popular_feed_thumb{
+            max-width: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        .pu_date{
+            font-size: 14px;
+            color: #1d2122;
+            i{
+                margin-right: 5px;
+            }
+        }
+    }
+    &.pu_category_list{
+        .category_tag{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            li{
+                font-size: 14px;
+                font-weight: 700;
+                padding: 13px 30px;
+                background-color: #363a57;
+                margin-bottom: 10px;
+                position: relative;
+                @include transform_time(.3s);
+                text-transform: uppercase;
+                a{
+                    color: #faf7e3;
+                    display: block;
+                }
+                &:last-child{
+                    margin-bottom: 0;
+                }
+                span{
+                    background-color: #292c44;
+                    width: 50px;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    @include transform_time(.3s);
+                }
+                &:hover{
+                    background-color: #c81e4f;
+                    span{
+                        background-color: #d57156;
+                    }
+                }
+            }
+        }
+    }
+    &.pu_social_list{
+        .social_icon{
+            a{
+                font-size: 14px;
+                color: #091222;
+                display: inline-block;
+                margin-right: 8px;
+                padding: 8px 14px;
+                background-color: #ededed;
+                @include transform_time(.3s);
+                &:hover{
+                    background-color: $base_color_3;
+                    color: $white;
+                }
+            }
+        }
+    }
+    &.pu_twitter_feed{
+        .twitter_feed_inner{
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e1e6ff;
+            &:last-child{
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: 0px solid transparent;
+            }
+            i{
+                color: #82b29a;
+                position: absolute;
+                left: 0;
+                top: 5px;
+            }
+            .pu_desc{
+                margin-top: 0;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 2;
+            }
+            .pu_date{
+                font-size: 12px;
+                font-weight: 700;
+                text-transform: uppercase;
+                margin-top: 5px;
+            }
+        }
+    }
+    &.pu_tag_list{
+        a{
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+            background-color: #f4f4f4;
+            color: #363a57;
+            display: inline-block;
+            padding: 4px 21px;
+            line-height: 22px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            &:hover{
+                background-color: $base_color_3;
+                color: $white;
+            }
+        }
+    }
+    &.pu_ads{
+        position: relative;
+        border: 0px solid transparent;
+        img{
+            width: 100%;
+        }
+        .ads_desc{
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            margin: 0 auto;
+            text-align: center;
+            max-width: 215px;
+        }
+        h5{
+            font-size: 24px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 700;
+            background-color: #c81e4f;
+            padding: 25px;
+            span{
+                font-size: 16px;
+                display: block;
+            }
+        }
+    }
+}
+.blog_paginition{
+    margin-top: 10px;
+    .page-link {
+        position: relative;
+        display: block;
+        padding: 10px;
+        line-height: 1.25;
+        color: #1d2122;
+        background-color: transparent;
+        border: 2px solid #ededed;
+        margin: 0 5px;
+        font-size: 14px;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0 !important;
+        &:hover{
+            background-color: $base_color_2;
+            border: 2px solid $base_color_2;
+            color: $white;
+        }
+    }
+}

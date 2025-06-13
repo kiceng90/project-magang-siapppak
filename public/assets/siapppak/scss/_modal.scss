@@ -1,0 +1,210 @@
+.pu_custom_modal_content{
+    .modal_style_close_btn {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        font-size: 16px;
+        z-index: 999;
+    }
+    .modal-dialog{
+        max-width: 560px;
+
+    }
+    .modal-content{
+        padding: 60px;
+        @media #{$tab}{
+            padding: 20px;
+        }
+    }
+    .modal-body{
+        padding: 0;
+    }
+    h2{
+        font-size: 30px;
+        font-family: $bar_font;
+        color: rgb(38, 38, 38);
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 5px;
+        @media #{$tab}{
+            font-size: 25px;
+        }
+        span{
+           font-size: 18px;
+           color: #7c7a71;
+           font-weight: 400;
+           text-transform: capitalize;
+           margin-left: 10px;
+           @media #{$tab}{
+               display: block;
+               margin-left: 0;
+           }
+        }
+    }
+    p{
+        font-size: 18px;
+    }
+    .share_icon_list{
+        .social_btn{
+            flex: 50% 0 0;
+            padding: 13px 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #3b5998;
+            color: $white;
+            @media #{$tab}{
+                margin-bottom: 10px;
+            }
+            i{
+                font-size: 16px;
+                color: $white;
+            }
+            p{
+                font-size: 16px;
+                color: $white;
+                margin-left: 20px;
+                line-height: 20px;
+                span{
+                    font-size: 12px;
+                    line-height: 1;
+                    display: block;
+                }
+            }
+            &:first-child{
+                border-radius: 6px 0 0 6px;
+                @media #{$tab}{
+                    border-radius: 0;
+                }
+            }
+            &:last-child{
+                border-radius: 0 6px 6px 0;
+                @media #{$tab}{
+                    border-radius: 0;
+                }
+            }
+        }
+        .social_icon{
+            height: 33px;
+            width: 33px;
+            font-size: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 30px #112b62;
+            padding: 17px;
+            
+        }
+        .twitter{
+            background-color: #26a6d1;
+        }
+    }
+    #res_pass_btn{
+        background-color: transparent;
+        border: 0px solid transparent;
+        margin-bottom: 10px;
+    }
+    .popup_form{
+        margin-top: 40px;
+        border: 25px solid transparent;
+        border-radius: 5px;
+        border-image: url(../img/frame.png) 30 round;
+        padding: 19px;
+        @media #{$mobile}{
+            border: 0 solid transparent;
+            padding: 0;
+        }
+        .form-group{
+            margin-bottom: 34px;
+            @media #{$tab}{
+                margin-bottom: 20px;
+            }
+            label{
+                font-size: 14px;
+                color: rgb(38, 38, 38);
+                line-height: 1.2;
+                font-weight: 700;
+                font-family: $bar_font;
+                margin-bottom: 14px;
+                display: block;
+               
+            }
+            .modal_btn_1{
+                border: 0px solid transparent;
+                background-color: transparent;
+                font-family: $bar_font;
+                color: #c81e4f;
+                text-align: right;
+                float: right;
+                margin-bottom: 14px;
+            }
+            .cu_input{
+                border: 1px solid #eeede7;
+                background-color: #eeede7;
+                height: 50px;
+                line-height: 50px;
+                padding: 8px 30px;
+                color: #7c7a71;
+                font-size: 14px;
+                border-radius: 5px;
+                &:focus{
+                    box-shadow: 0px 10px 40px 0px rgba(34, 34, 34, 0.1) !important;
+                    border: 1px solid #fff !important;
+                    background-color: #fff;
+                    color: #262626;
+                }
+            }
+        }
+        .cu_btn{
+            min-width: 160px;
+            border-radius: 5px;
+            @media #{$mobile}{
+                margin-bottom: 10px;
+                margin-left: 0;
+            }
+        }
+        .Remember_pass{
+            margin-left: 40px;
+            display: flex;
+            align-items: center;
+            @media #{$mobile}{
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            label{
+                margin-bottom: 0;
+                margin-left: 15px;
+                font-size: 14px;
+                font-weight: 600;
+                color: #7c7a71;
+            }
+        }
+    }
+}
+.singup_modal_style{
+    .modal-dialog{
+        max-width: 960px;
+        @media #{$tab_device}{
+            max-width: 80%;
+        }
+        @media #{$mobile}{
+            max-width: 90%;
+        }
+    }
+    h5{
+        font-size: 14px;
+        color: rgb(38, 38, 38);
+        font-weight: 700;
+        line-height: 2.857;
+        margin-right: 30px;
+        font-family: $bar_font;
+    }
+    .share_icon_list .social_btn {
+        padding: 13px 25px;
+    }
+    .popup_form {
+        padding: 10px;
+        margin-top: 30px;
+    }
+}

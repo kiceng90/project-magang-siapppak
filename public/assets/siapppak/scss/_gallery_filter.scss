@@ -1,0 +1,62 @@
+.pu_filter_button_group{
+    text-align: center;
+    margin-bottom: 73px;
+    .button{
+        padding: 0;
+        background-color: transparent;
+        border: 0px solid transparent;
+        text-transform: uppercase;
+        font-size: 20px;
+        margin: 0 20px;
+        position: relative;
+        line-height: 1;
+        font-weight: 700;
+        color: #636886;
+        &:after{
+            position: absolute;
+            content: "";
+            left: 0;
+            bottom: -10px;
+            height: 2px;
+            width: 100%;
+            background-color: #c81e4f;
+            opacity: 0;
+            @include transform_time(.3s);
+        }
+        .filter-count{
+            position: absolute;
+            top: -10px;
+            right: -19px;
+            opacity: 0;
+            visibility: hidden;
+            font-size: 14px;
+            @include transform_time(.3s);
+        }
+        &.is-checked{
+            color: #363a57;
+            .filter-count{
+                opacity: 1;
+                visibility: visible;
+            }
+            &:after{
+                bottom: -8px;
+                opacity: 1;
+            }
+        }
+    }
+}
+.pu_gallery_filter{
+    @media #{$tab}{
+        padding-top: 50px;
+    }
+    @media #{$medium_device}{
+        padding-top: 50px;
+    }
+    .pu_gallery_inner{
+        margin-bottom: 30px;
+    }
+    .load_btn_wrapper{
+        text-align: center;
+        margin-top: 30px;
+    }
+}

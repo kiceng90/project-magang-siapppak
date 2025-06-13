@@ -1,0 +1,1515 @@
+<template>
+    <div>
+        <div class="d-flex flex-column flex-root">
+            <div class="page d-flex flex-row flex-column-fluid">
+                <app-sidebar></app-sidebar>
+                <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                    <app-navbar></app-navbar>
+                    <!-- isi contentnya ya -->
+
+                    <div id="main-content">
+                        <!--begin::Post-->
+                        <div class="post d-flex flex-column-fluid" id="kt_post">
+                            <!--begin::Container-->
+                            <div id="kt_content_container" class="container-xxl">
+
+                                <div class="card card-flush mt-5 mb-5 mb-xl-10" id="kt_profile_details_view">
+                                    <div class="card card-xl-stretch mb-5 mb-xl-8">
+                                        <div class="card-header border-0 pt-5 align-items-center">
+                                            <h3 class="card-title align-items-start flex-column">
+                                                <span class="card-label fw-bolder text-dark mb-2"
+                                                    style="font-size:20px !important;">Konselor</span>
+                                            </h3>
+                                            <div class="d-flex align-items-center">
+                                                <button type="button" class="btn btn-sm c-primary-custom me-3"
+                                                    style="background: #FFF4DD !important;color:#EE7B33 !important"
+                                                    @click="exportData">
+                                                    <span>
+                                                        <svg width="22" height="23" viewBox="0 0 22 23" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path opacity="0.3"
+                                                                d="M5.36913 2.33203H12.5918C12.9169 2.33203 13.2315 2.44724 13.4798 2.65721L17.8464 6.35064C18.1553 6.6119 18.3334 6.99592 18.3334 7.40047V18.9084C18.3334 20.5497 18.3147 20.6654 16.631 20.6654H5.36913C3.68549 20.6654 3.66675 20.5497 3.66675 18.9084V4.08898C3.66675 2.44765 3.68549 2.33203 5.36913 2.33203Z"
+                                                                fill="#EE7B33" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8.20541 13.1654H9.99885V15.0057C9.99885 15.2589 10.2041 15.4641 10.4572 15.4641H11.3952C11.6483 15.4641 11.8535 15.2589 11.8535 15.0057V13.1654H13.647C13.9001 13.1654 14.1053 12.9602 14.1053 12.707C14.1053 12.5986 14.0668 12.4936 13.9968 12.4109L11.276 9.19734C11.1124 9.00415 10.8232 8.98014 10.63 9.1437C10.6107 9.16007 10.5928 9.17801 10.5764 9.19734L7.85562 12.4109C7.69205 12.604 7.71606 12.8933 7.90925 13.0568C7.99202 13.1269 8.09696 13.1654 8.20541 13.1654Z"
+                                                                fill="#EE7B33" />
+                                                        </svg>
+                                                        &ensp;Export Data</span>
+                                                </button>
+                                                <button type="button" class="btn btn-sm c-primary-custom me-3"
+                                                    style="background: #FFF4DD !important;color:#EE7B33 !important"
+                                                    @click="showModalImport">
+                                                    <span>
+                                                        <svg width="22" height="23" viewBox="0 0 22 23" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path opacity="0.3"
+                                                                d="M5.36913 2.33203H12.5918C12.9169 2.33203 13.2315 2.44724 13.4798 2.65721L17.8464 6.35064C18.1553 6.6119 18.3334 6.99592 18.3334 7.40047V18.9084C18.3334 20.5497 18.3147 20.6654 16.631 20.6654H5.36913C3.68549 20.6654 3.66675 20.5497 3.66675 18.9084V4.08898C3.66675 2.44765 3.68549 2.33203 5.36913 2.33203Z"
+                                                                fill="#EE7B33" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8.20541 13.1654H9.99885V15.0057C9.99885 15.2589 10.2041 15.4641 10.4572 15.4641H11.3952C11.6483 15.4641 11.8535 15.2589 11.8535 15.0057V13.1654H13.647C13.9001 13.1654 14.1053 12.9602 14.1053 12.707C14.1053 12.5986 14.0668 12.4936 13.9968 12.4109L11.276 9.19734C11.1124 9.00415 10.8232 8.98014 10.63 9.1437C10.6107 9.16007 10.5928 9.17801 10.5764 9.19734L7.85562 12.4109C7.69205 12.604 7.71606 12.8933 7.90925 13.0568C7.99202 13.1269 8.09696 13.1654 8.20541 13.1654Z"
+                                                                fill="#EE7B33" />
+                                                        </svg>
+                                                        &ensp;Import Data</span>
+                                                </button>
+                                                <button type="button" class="btn btn-sm bg-primary-custom"
+                                                    @click="showModalAdd">
+                                                    <span class="text-white">Tambah Data</span>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body pt-5">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-6 mb-5">
+                                                    <div class="w-100 py-5 px-3"
+                                                        style="border-radius:10px;border:1px #ddd solid;height:100%">
+                                                        <div class="fw-bolder text-center c-primary-custom"
+                                                            style="font-size:20px;">
+                                                            {{single.header.loading? 'Loading..' : $rupiahFormat(single.header.member) + ' Orang'}}
+                                                        </div>
+                                                        <div class="text-center text-gray-600 pt-3">Jumlah Anggota</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 mb-5">
+                                                    <div class="w-100 py-5 px-3"
+                                                        style="border-radius:10px;border:1px #ddd solid;height:100%">
+                                                        <div class="fw-bolder text-center c-primary-custom"
+                                                            style="font-size:20px;">
+                                                            {{single.header.loading? 'Loading..' : $rupiahFormat(single.header.village)}}
+                                                        </div>
+                                                        <div class="text-center text-gray-600 pt-3">Jumlah Kelurahan
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 mb-5">
+                                                    <div class="w-100 py-5 px-3"
+                                                        style="border-radius:10px;border:1px #ddd solid;height:100%">
+                                                        <div class="fw-bolder text-center c-primary-custom"
+                                                            style="font-size:20px;">
+                                                            {{single.header.loading? 'Loading..' : $rupiahFormat(single.header.subDistrict)}}
+                                                        </div>
+                                                        <div class="text-center text-gray-600 pt-3">Jumlah Kecamatan
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-2 pb-5">
+                                                    <div style="font-size:20px;font-weight:600;" class="pt-2">Filter
+                                                        Data</div>
+                                                </div>
+                                                <div class="col-lg-4 mb-5">
+                                                    <app-select-single v-model="single.filter.subDistrict"
+                                                        :show_button_clear="false" :placeholder="'Pilih kecamatan'"
+                                                        :options="listSubDistrictFilter" :serverside="true"
+                                                        :loading="pageStatus == 'sub-district-filter-load'"
+                                                        @change-search="getSubDistrictFilter"
+                                                        @option-change="tableConfig.config.current_page = 1; getDataTable()">
+                                                    </app-select-single>
+                                                </div>
+                                                <div class="col-lg-4 mb-5">
+                                                    <app-select-single v-model="single.filter.village"
+                                                        :disabled="single.filter.subDistrict.id == '0'"
+                                                        :show_button_clear="false" :placeholder="'Pilih kelurahan'"
+                                                        :options="listVillageFilter" :serverside="true"
+                                                        :loading="pageStatus == 'village-filter-load'"
+                                                        @change-search="getVillageFilter"
+                                                        @option-change="tableConfig.config.current_page = 1; getDataTable()">
+                                                    </app-select-single>
+                                                </div>
+                                            </div>
+                                            <app-datatable-serverside :table_config="tableConfig"
+                                                @change-page="getDataTable"
+                                                v-model:show_per_page="tableConfig.config.show_per_page"
+                                                v-model:search="tableConfig.config.search"
+                                                v-model:order="tableConfig.config.order"
+                                                v-model:sort_by="tableConfig.config.sort_by"
+                                                v-model:current_page="tableConfig.config.current_page">
+                                                <template v-slot:body>
+                                                    <tr v-for="(context, index) in tableConfig.feeder.data">
+                                                        <td class="text-center">{{index + 1}}</td>
+                                                        <td class="text-left">
+                                                            <div class="d-flex align-items-center">
+                                                                <img class="me-3" :src="context.foto"
+                                                                    style="width:50px;height:50px;border-radius:5px;">
+                                                                <div>
+                                                                    <div>{{context.nama_m_konselor}}</div>
+                                                                    <div class="text-gray-600">{{context.nik}}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <div>{{context.nama_kecamatan_domisili}}</div>
+                                                                    <div class="text-gray-600">Kel.
+                                                                        {{context.nama_kelurahan_domisili}}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div class="text-center w-100">
+                                                                <div
+                                                                    class="form-check form-switch form-check-custom form-check-solid justify-content-center">
+                                                                    <input class="form-check-input h-20px w-40px"
+                                                                        type="checkbox" value="1"
+                                                                        :checked="context.is_active"
+                                                                        @click="changeStatus(context.id)" />
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div class="dropdown" style="position:static !important;">
+                                                                <button class="btn btn-secondary btn-xs dropdown-toggle"
+                                                                    type="button" data-bs-toggle="dropdown"
+                                                                    style="padding:5px 10px !important;"
+                                                                    aria-expanded="false">
+                                                                    Aksi
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item py-3"
+                                                                            href="javascript:void(0);"
+                                                                            @click="edit(context.id)">Edit</a></li>
+                                                                    <li v-if="context.foto"><a class="dropdown-item py-3"
+                                                                            :href="context.foto" target="_blank"
+                                                                            download>Unduh Foto</a>
+                                                                    </li>                                                                  
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </app-datatable-serverside>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Container-->
+                        </div>
+
+                        <!--end::Post-->
+                    </div>
+
+                    <!-- end of content -->
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Page-->
+        </div>
+        <app-scroll-top></app-scroll-top>
+
+        <div class="modal fade" tabindex="-1" id="modal-form">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            {{flag == 'insert' ? 'Tambah Data Konselor' : 'Edit Data Konselor'}}</h5>
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            <span class="svg-icon-2x">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M17.88 15.9996L23.6134 10.2796C23.8644 10.0285 24.0055 9.688 24.0055 9.33293C24.0055 8.97786 23.8644 8.63733 23.6134 8.38626C23.3623 8.13519 23.0218 7.99414 22.6667 7.99414C22.3116 7.99414 21.9711 8.13519 21.72 8.38626L16 14.1196L10.28 8.38626C10.029 8.13519 9.68844 7.99414 9.33337 7.99414C8.97831 7.99414 8.63778 8.13519 8.38671 8.38626C8.13564 8.63733 7.99459 8.97786 7.99459 9.33293C7.99459 9.688 8.13564 10.0285 8.38671 10.2796L14.12 15.9996L8.38671 21.7196C8.26174 21.8435 8.16254 21.991 8.09485 22.1535C8.02716 22.316 7.99231 22.4902 7.99231 22.6663C7.99231 22.8423 8.02716 23.0166 8.09485 23.179C8.16254 23.3415 8.26174 23.489 8.38671 23.6129C8.51066 23.7379 8.65813 23.8371 8.8206 23.9048C8.98308 23.9725 9.15736 24.0073 9.33337 24.0073C9.50939 24.0073 9.68366 23.9725 9.84614 23.9048C10.0086 23.8371 10.1561 23.7379 10.28 23.6129L16 17.8796L21.72 23.6129C21.844 23.7379 21.9915 23.8371 22.1539 23.9048C22.3164 23.9725 22.4907 24.0073 22.6667 24.0073C22.8427 24.0073 23.017 23.9725 23.1795 23.9048C23.342 23.8371 23.4894 23.7379 23.6134 23.6129C23.7383 23.489 23.8375 23.3415 23.9052 23.179C23.9729 23.0166 24.0078 22.8423 24.0078 22.6663C24.0078 22.4902 23.9729 22.316 23.9052 22.1535C23.8375 21.991 23.7383 21.8435 23.6134 21.7196L17.88 15.9996Z"
+                                        fill="black" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.konselor.$error ? 'text-danger' : ''">Nama Lengkap</label>
+                                <app-select-single v-model="single.konselor" :placeholder="'Pilih Konselor'"
+                                    :options="listKonselor" :loading="pageStatus == 'konselor-load'" :serverside="true"
+                                    @change-search="getKonselor" :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.konselor.$error" class="text-danger"> Nama Lengkap tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.nik.$error ? 'text-danger' : ''">NIK</label>
+                                <input class="form-control" type="text" placeholder="Contoh: 1829485756389"
+                                    autocomplete="off" v-model="single.nik" />
+                                <div v-if="v$.single.nik.$error" class="text-danger"> panjang karakter harus 16!
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.tmt_tugas.$error ? 'text-danger' : ''">TMT Tugas</label>
+                                <app-datepicker type="date" placeholder="Pilih tanggal" :format="'DD-MM-YYYY'"
+                                    :value-type="'YYYY-MM-DD'" v-model:value="single.tmt_tugas">
+                                </app-datepicker>
+                                <div v-if="v$.single.tmt_tugas.$error" class="text-danger"> TMT Tugas tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.status.$error ? 'text-danger' : ''">Status</label>
+                                <app-select-single v-model="single.status" :placeholder="'Pilih Status'"
+                                    :options="listStatus" :loading="false" :serverside="false">
+                                </app-select-single>
+                                <div v-if="v$.single.status.$error" class="text-danger"> Status tidak boleh kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.placeOfBirth.$error ? 'text-danger' : ''">Tempat Lahir</label>
+                                <app-select-single v-model="single.placeOfBirth" :placeholder="'Pilih Kabupaten'"
+                                    :options="listPlaceOfBirth" :loading="pageStatus == 'place-of-birth-load'"
+                                    :serverside="true" @change-search="getPlaceOfBirth" :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.placeOfBirth.$error" class="text-danger"> Tempat Lahir tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.dateOfBirth.$error ? 'text-danger' : ''">Tanggal Lahir</label>
+                                <app-datepicker type="date" placeholder="Pilih tanggal" :format="'DD-MM-YYYY'"
+                                    :value-type="'YYYY-MM-DD'" v-model:value="single.dateOfBirth">
+                                </app-datepicker>
+                                <div v-if="v$.single.dateOfBirth.$error" class="text-danger"> Tanggal Lahir tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.lastEducation.$error ? 'text-danger' : ''">Pendidikan
+                                    Terakhir</label>
+                                <app-select-single v-model="single.lastEducation"
+                                    :placeholder="'Pilih Pendidikan Terakhir'" :options="listLastEducation"
+                                    :loading="pageStatus == 'last-education-load'" :serverside="true"
+                                    @change-search="getLastEducation" :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.lastEducation.$error" class="text-danger"> Pendidikan Terakhir
+                                    tidak
+                                    boleh kosong!
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.jurusan.$error ? 'text-danger' : ''">Jurusan</label>
+                                <app-select-single v-model="single.jurusan" :placeholder="'Pilih Jurusan'"
+                                    :options="listJurusan" :loading="pageStatus == 'jurusan-load'" :serverside="true"
+                                    @change-search="getJurusan" :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.jurusan.$error" class="text-danger"> Jabatan Dalam SK tidak
+                                    boleh kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.instansi.$error ? 'text-danger' : ''">Instansi Pendidikan</label>
+                                <app-select-single v-model="single.instansi" :placeholder="'Pilih Instansi'"
+                                    :options="listInstansi" :loading="pageStatus == 'instansi-load'" :serverside="true"
+                                    @change-search="getInstansi" :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.instansi.$error" class="text-danger"> Instansi Pendidikan tidak
+                                    boleh kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-5 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.subDistrictDomicile.$error ? 'text-danger' : ''">Kecamatan
+                                    Domisili</label>
+                                <app-select-single v-model="single.subDistrictDomicile" :placeholder="'Pilih kecamatan'"
+                                    :options="listSubDistrictDomicile"
+                                    :loading="pageStatus == 'sub-district-domicile-load'"
+                                    @option-change="single.villageDomicile = {}" :serverside="true"
+                                    @change-search="(keyword, limit) => getSubDistrict(keyword, limit, 'listSubDistrictDomicile','sub-district-domicile-load')"
+                                    :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.subDistrictDomicile.$error" class="text-danger"> Kecamatan tidak
+                                    boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-3 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.villageDomicile.$error ? 'text-danger' : ''">Kelurahan
+                                    Domisili</label>
+                                <app-select-single v-model="single.villageDomicile" :placeholder="'Pilih kelurahan'"
+                                    :options="listVillageDomicile" :loading="pageStatus == 'village-domicile-load'"
+                                    :serverside="true" :disabled="!single.subDistrictDomicile.id"
+                                    @change-search="(keyword, limit) => getVillage(keyword, limit,single.subDistrictDomicile.id, 'listVillageDomicile','village-domicile-load')"
+                                    :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.villageDomicile.$error" class="text-danger"> Kelurahan tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-2 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.rtDomicile.$error ? 'text-danger' : ''">RT</label>
+                                <app-select-single v-model="single.rtDomicile" :placeholder="'Pilih rt'"
+                                    :show_search="false" :options="listRwComputed" :serverside="false"
+                                    :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.rtDomicile.$error" class="text-danger"> RT tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-2 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.rwDomicile.$error ? 'text-danger' : ''">RW</label>
+                                <app-select-single v-model="single.rwDomicile" :placeholder="'Pilih rw'"
+                                    :show_search="false" :options="listRwComputed" :serverside="false"
+                                    :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.rwDomicile.$error" class="text-danger"> RW tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.addressDomicile.$error ? 'text-danger' : ''">Alamat
+                                    Domisili</label>
+                                <textarea class="form-control" v-model="single.addressDomicile"></textarea>
+                                <div v-if="v$.single.addressDomicile.$error" class="text-danger"> Alamat Domisili tidak
+                                    boleh kosong!
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-5 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.subDistrictKtp.$error ? 'text-danger' : ''">Kecamatan KTP</label>
+                                <app-select-single v-model="single.subDistrictKtp" :placeholder="'Pilih kecamatan'"
+                                    :options="listSubDistrictKtp" :loading="pageStatus == 'sub-district-ktp-load'"
+                                    @option-change="single.villageKtp = {}" :serverside="true"
+                                    @change-search="(keyword, limit) => getSubDistrict(keyword, limit, 'listSubDistrictKtp','sub-district-ktp-load')"
+                                    :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.subDistrictKtp.$error" class="text-danger"> Kecamatan tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-3 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.villageKtp.$error ? 'text-danger' : ''">Kelurahan KTP</label>
+                                <app-select-single v-model="single.villageKtp" :placeholder="'Pilih kelurahan'"
+                                    :options="listVillageKtp" :loading="pageStatus == 'village-ktp-load'"
+                                    :serverside="true" :disabled="!single.subDistrictKtp.id"
+                                    @change-search="(keyword, limit) => getVillage(keyword, limit,single.subDistrictKtp.id, 'listVillageKtp','village-ktp-load')"
+                                    :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.villageKtp.$error" class="text-danger"> Kelurahan tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-2 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.rtKtp.$error ? 'text-danger' : ''">RT</label>
+                                <app-select-single v-model="single.rtKtp" :placeholder="'Pilih rt'" :show_search="false"
+                                    :options="listRwComputed" :serverside="false" :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.rtKtp.$error" class="text-danger"> RT tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-2 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.rwKtp.$error ? 'text-danger' : ''">RW</label>
+                                <app-select-single v-model="single.rwKtp" :placeholder="'Pilih rw'" :show_search="false"
+                                    :options="listRwComputed" :serverside="false" :show_button_clear="false">
+                                </app-select-single>
+                                <div v-if="v$.single.rwKtp.$error" class="text-danger"> RW tidak boleh
+                                    kosong!
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-5">
+                                <label class="form-label fw-bolder fs-6"
+                                    :class="v$.single.addressKtp.$error ? 'text-danger' : ''">Alamat KTP</label>
+                                <textarea class="form-control" v-model="single.addressKtp"></textarea>
+                                <div v-if="v$.single.addressKtp.$error" class="text-danger"> Alamat KTP tidak
+                                    boleh kosong!
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-4 mb-5">
+                                <label class="form-label fw-bolder fs-6">Foto<br><span
+                                        style="font-size:12px;color:#706f6f;font-weight:normal !important;">Dimensi
+                                        gambar direkomendasikan 4x6 & maksimal ukuran file 5 MB</span></label>
+                                <div class="" style="position:relative;width:130px;">
+                                    <img class="mb-3" v-if="single.photo_path" :src="single.photo_path"
+                                        style="width:130px;height:130px;">
+                                    <img class="mb-3" v-if="!single.photo_path"
+                                        :src="$assetUrl() + 'extends/img/noimage.png'"
+                                        style="width:130px;height:130px;">
+                                    <input :id="'input-photo'" type="file" class="d-none" accept="image/*"
+                                        @change="imageChangePhoto($event)">
+                                    <button class="btn d-flex align-items-center justify-content-center" type="button"
+                                        style="padding:0 !important;border-radius:100px;width:40px;height:40px;background:#fff !important;;position:absolute;top:5px;right:-10px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important"
+                                        @click="choosePhoto">
+                                        <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M6.22775 17.7066L15.5208 8.41364L11.1068 3.99964L1.81375 13.2926C1.68582 13.4207 1.59494 13.5811 1.55075 13.7566L0.520752 18.9996L5.76275 17.9696C5.93875 17.9256 6.09975 17.8346 6.22775 17.7066ZM18.5208 5.41364C18.8957 5.03858 19.1063 4.52996 19.1063 3.99964C19.1063 3.46931 18.8957 2.96069 18.5208 2.58564L16.9348 0.999635C16.5597 0.624693 16.0511 0.414062 15.5208 0.414062C14.9904 0.414062 14.4818 0.624693 14.1068 0.999635L12.5208 2.58564L16.9348 6.99964L18.5208 5.41364Z"
+                                                fill="#7E8299" />
+                                        </svg>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button v-if="flag == 'insert'" @click="save"
+                            class="btn btn-sm bg-second-primary-custom text-white" type="button">
+                            Simpan
+                        </button>
+                        <button v-if="flag == 'update'" @click="update"
+                            class="btn btn-sm bg-second-primary-custom text-white" type="button">
+                            Simpan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" tabindex="-1" id="modal-import">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            Import Data Konselor</h5>
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            <span class="svg-icon-2x">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M17.88 15.9996L23.6134 10.2796C23.8644 10.0285 24.0055 9.688 24.0055 9.33293C24.0055 8.97786 23.8644 8.63733 23.6134 8.38626C23.3623 8.13519 23.0218 7.99414 22.6667 7.99414C22.3116 7.99414 21.9711 8.13519 21.72 8.38626L16 14.1196L10.28 8.38626C10.029 8.13519 9.68844 7.99414 9.33337 7.99414C8.97831 7.99414 8.63778 8.13519 8.38671 8.38626C8.13564 8.63733 7.99459 8.97786 7.99459 9.33293C7.99459 9.688 8.13564 10.0285 8.38671 10.2796L14.12 15.9996L8.38671 21.7196C8.26174 21.8435 8.16254 21.991 8.09485 22.1535C8.02716 22.316 7.99231 22.4902 7.99231 22.6663C7.99231 22.8423 8.02716 23.0166 8.09485 23.179C8.16254 23.3415 8.26174 23.489 8.38671 23.6129C8.51066 23.7379 8.65813 23.8371 8.8206 23.9048C8.98308 23.9725 9.15736 24.0073 9.33337 24.0073C9.50939 24.0073 9.68366 23.9725 9.84614 23.9048C10.0086 23.8371 10.1561 23.7379 10.28 23.6129L16 17.8796L21.72 23.6129C21.844 23.7379 21.9915 23.8371 22.1539 23.9048C22.3164 23.9725 22.4907 24.0073 22.6667 24.0073C22.8427 24.0073 23.017 23.9725 23.1795 23.9048C23.342 23.8371 23.4894 23.7379 23.6134 23.6129C23.7383 23.489 23.8375 23.3415 23.9052 23.179C23.9729 23.0166 24.0078 22.8423 24.0078 22.6663C24.0078 22.4902 23.9729 22.316 23.9052 22.1535C23.8375 21.991 23.7383 21.8435 23.6134 21.7196L17.88 15.9996Z"
+                                        fill="black" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-lg-12 mb-5">
+                                <label class="form-label fw-bolder fs-6">File</label>
+                                <div id="dropzone-container-1">
+                                    <div class="dropzone dropzone-file-area dz-clickable" id="dropzone-import">
+                                        <div class="dz-message needsclick">
+                                            <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
+                                            <div class="ms-4">
+                                                <h5 class="kt-dropzone__msg-title">Drop files here or
+                                                    click
+                                                    to upload</h5>
+                                                <span class="kt-dropzone__msg-desc text-primary">
+                                                    Upload 1 files with the format .xls/.xlsx
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-5" v-if="listErrorImport.length > 0">
+                                    <table class="table table-rounded table-striped border gy-7 gs-7">
+                                        <thead>
+                                            <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                                                <th>Row</th>
+                                                <th>Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="context in listErrorImport">
+                                                <td>{{context.row}}</td>
+                                                <td>
+                                                    <ul>
+                                                        <li v-for="error in context.note">{{error}}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!--begin::Alert-->
+                                <div
+                                    class="alert mt-10 bg-light-primary d-flex flex-column flex-sm-row p-5 mb-10 align-items-center">
+                                    <!--begin::Icon-->
+                                    <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
+
+                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3"
+                                                d="M15.9998 29.3346C23.3636 29.3346 29.3332 23.3651 29.3332 16.0013C29.3332 8.63751 23.3636 2.66797 15.9998 2.66797C8.63604 2.66797 2.6665 8.63751 2.6665 16.0013C2.6665 23.3651 8.63604 29.3346 15.9998 29.3346Z"
+                                                fill="#009EF7" />
+                                            <path
+                                                d="M17.3332 14.6654C17.3332 13.929 16.7362 13.332 15.9998 13.332C15.2635 13.332 14.6665 13.929 14.6665 14.6654V21.332C14.6665 22.0684 15.2635 22.6654 15.9998 22.6654C16.7362 22.6654 17.3332 22.0684 17.3332 21.332V14.6654Z"
+                                                fill="#009EF7" />
+                                            <path
+                                                d="M17.3332 10.6654C17.3332 9.92898 16.7362 9.33203 15.9998 9.33203C15.2635 9.33203 14.6665 9.92898 14.6665 10.6654C14.6665 11.4017 15.2635 11.9987 15.9998 11.9987C16.7362 11.9987 17.3332 11.4017 17.3332 10.6654Z"
+                                                fill="#009EF7" />
+                                        </svg>
+
+                                    </span>
+                                    <!--end::Icon-->
+
+                                    <!--begin::Wrapper-->
+                                    <div class="d-flex align-items-center justify-content-between w-100">
+                                        <div class="d-flex flex-column w-100">
+                                            <!--begin::Title-->
+                                            <h4 class="mb-1 text-dark">Format Import.</h4>
+                                            <!--end::Title-->
+                                            <!--begin::Content-->
+                                            <span>Silahkan download format import terlebih dahulu.</span>
+                                            <!--end::Content-->
+                                        </div>
+                                        <button @click="getTemplateImport" type="button"
+                                            class="btn btn-primary">Download</button>
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </div>
+                                <!--end::Alert-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button @click="saveImport" class="btn btn-sm bg-second-primary-custom text-white"
+                            type="button">
+                            Simpan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import Api from "@/services/api";
+    import useVuelidate from '@vuelidate/core'
+    import {
+        required,
+        minLength,
+        maxLength
+    } from '@vuelidate/validators'
+
+    export default {
+        data() {
+            return {
+                pageStatus: 'standby',
+                v$: useVuelidate(),
+                flag: 'insert',
+                dropzoneImport: null,
+                listSubDistrictDomicile: [],
+                listVillageDomicile: [],
+
+                listSubDistrictKtp: [],
+                listVillageKtp: [],
+
+                listInstansi: [],
+                listLastEducation: [],
+                listJurusan: [],
+                listPlaceOfBirth: [],
+
+                listKonselor: [],
+                listStatus: [{
+                        id: 'konselor',
+                        text: 'Konselor'
+                    },
+                    {
+                        id: 'psikolog',
+                        text: 'Psikolog'
+                    }
+                ],
+
+                listRw: [],
+                listErrorImport: [],
+                listSubDistrictFilter: [],
+                listVillageFilter: [],
+                listRwFilter: [],
+                single: {
+                    header: {
+                        member: 0,
+                        village: 0,
+                        subDistrict: 0,
+                        loading: true
+                    },
+                    id: '',
+                    konselor: {},
+                    tmt_tugas: '',
+                    status: {},
+                    nik: '',
+                    dateOfBirth: '',
+                    placeOfBirth: {},
+                    lastEducation: {},
+                    jurusan: {},
+                    instansi: {},
+                    kompetensi: '',
+                    subDistrictDomicile: {},
+                    villageDomicile: {},
+                    addressDomicile: '',
+                    rwDomicile: {},
+                    rtDomicile: {},
+                    subDistrictKtp: {},
+                    villageKtp: {},
+                    addressKtp: '',
+                    rwKtp: {},
+                    rtKtp: {},
+                    phone: '',
+                    email: '',
+                    photo_path: '',
+                    photo_file: '',
+
+                    filter: {
+                        subDistrict: {
+                            id: '0',
+                            text: 'Semua'
+                        },
+                        village: {
+                            id: '0',
+                            text: 'Semua'
+                        },
+                        rw: {
+                            id: '0',
+                            text: 'Semua'
+                        },
+                    }
+                },
+                tableConfig: {
+                    feeder: {
+                        column: [{
+                                text: 'NO',
+                                sort_column: false,
+                                style: 'text-align: center',
+                            },
+                            {
+                                text: 'NAMA & NIK',
+                                sort_by: 'nama_m_konselor',
+                                sort_column: true,
+                                style: 'text-align: left',
+                            },
+                            {
+                                text: 'KEC & KEL DOMISILI',
+                                sort_by: 'nama_kecamatan_domisili',
+                                sort_column: true,
+                                style: 'text-align: left',
+                            },
+                            {
+                                text: 'STATUS',
+                                sort_by: 'is_active',
+                                sort_column: true,
+                                style: 'text-align: center',
+                            },
+                            {
+                                text: 'AKSI',
+                                sort_column: false,
+                                style: 'text-align: center',
+                            },
+                        ],
+
+                        data: [],
+                    },
+                    config: {
+                        title: 'Datatable',
+                        show_per_page: 10,
+                        search: '',
+                        order: 'desc',
+                        sort_by: 'id',
+                        total_data: 0,
+                        current_page: 1,
+                        loading: false,
+                        show_search: true,
+                    }
+                },
+            }
+
+        },
+        validations() {
+            return {
+                single: {
+                    konselor: {
+                        required
+                    },
+                    tmt_tugas: {
+                        required
+                    },
+                    status: {
+                        required
+                    },
+                    nik: {
+                        required,
+                        minLength: minLength(16),
+                        maxLength: maxLength(16)
+                    },
+                    placeOfBirth: {
+                        required
+                    },
+                    dateOfBirth: {
+                        required
+                    },
+                    lastEducation: {
+                        required
+                    },
+                    jurusan: {
+                        required
+                    },
+                    instansi: {
+                        required
+                    },
+                    subDistrictDomicile: {
+                        required
+                    },
+                    villageDomicile: {
+                        required
+                    },
+                    addressDomicile: {
+                        required
+                    },
+                    rwDomicile: {
+                        required
+                    },
+                    rtDomicile: {
+                        required
+                    },
+                    subDistrictKtp: {
+                        required
+                    },
+                    villageKtp: {
+                        required
+                    },
+                    addressKtp: {
+                        required
+                    },
+                    rwKtp: {
+                        required
+                    },
+                    rtKtp: {
+                        required
+                    },
+                },
+            }
+        },
+        mounted() {
+            reinitializeAllPlugin();
+            this.initDropzone();
+            this.getDataTable();
+
+            this.getDataHeader();
+
+        },
+        beforeRouteLeave(to, from, next) {
+            this.dropzoneImport.destroy();
+            next();
+        },
+        computed: {
+            listRwComputed() {
+                let response = [];
+                for (let i = 0; i < 101; i++) {
+                    response.push({
+                        id: i,
+                        text: i
+                    })
+                }
+
+                return response;
+            }
+        },
+        methods: {
+            showModalImport() {
+
+                this.dropzoneImport.removeAllFiles(true);
+                this.dropzoneImport.files = [];
+
+                this.listErrorImport = [];
+
+                $("#modal-import").modal('show');
+            },
+            initDropzone() {
+                const that = this;
+
+                this.dropzoneImport = new Dropzone(
+                    "#dropzone-import", {
+                        url: "/",
+                        dictCancelUpload: "Cancel",
+                        maxFilesize: 50,
+                        parallelUploads: 1,
+                        uploadMultiple: false,
+                        maxFiles: 1,
+                        addRemoveLinks: true,
+                        acceptedFiles: '.xlsx,.xls',
+                        autoProcessQueue: false,
+                        init: function () {
+                            this.on("error", function (file) {
+                                if (!file.accepted) {
+                                    this.removeFile(file);
+                                    that.$swal('Silahkan periksa file Anda lagi');
+                                } else if (file.status == 'error') {
+                                    this.removeFile(file);
+                                    that.$swal('Terjadi kesalahan koneksi');
+                                }
+                            });
+
+                            this.on('resetFiles', function (file) {
+                                this.removeAllFiles();
+                            });
+                        },
+                    });
+            },
+            getDataHeader() {
+                Api().get(`database/konselor/rangkuman`)
+                    .then(response => {
+                        this.single.header.member = response.data.data.anggota;
+                        this.single.header.village = response.data.data.kelurahan;
+                        this.single.header.subDistrict = response.data.data.kecamatan;
+                    })
+                    .catch(error => {
+                        this.$axiosHandleError(error);
+                    }).then(() => {
+                        this.single.header.loading = false;
+                    });
+            },
+            showModalAdd() {
+                this.reset();
+
+                $("#modal-form").modal('show');
+            },
+            edit(id) {
+                this.reset();
+
+                this.$ewpLoadingShow();
+                Api().get(`database/konselor/` + id)
+                    .then(response => {
+                        $("#modal-form").modal('show');
+
+                        this.flag = 'update';
+
+                        let context = response.data.data;
+
+                        this.single.id = context.id;
+                        this.single.nik = context.nik;
+
+                        this.single.phone = context.phone_number_m_konselor;
+
+
+                        if (context.nama_kecamatan_domisili && context.id_kecamatan_domisili) {
+                            this.single.subDistrictDomicile = {
+                                id: context.id_kecamatan_domisili,
+                                text: context.nama_kecamatan_domisili,
+                            }
+                        }
+                        if (context.nama_kelurahan_domisili && context.id_kelurahan_domisili) {
+                            this.single.villageDomicile = {
+                                id: context.id_kelurahan_domisili,
+                                text: context.nama_kelurahan_domisili,
+                            }
+                        }
+                        if (context.rt_domisili !== null) {
+                            this.single.rtDomicile = {
+                                id: context.rt_domisili,
+                                text: context.rt_domisili,
+                            }
+                        }
+                        if (context.rw_domisili !== null) {
+                            this.single.rwDomicile = {
+                                id: context.rw_domisili,
+                                text: context.rw_domisili,
+                            }
+                        }
+
+                        this.single.addressDomicile = context.alamat_domisili;
+
+
+                        if (context.nama_kecamatan_ktp && context.id_kecamatan_ktp) {
+                            this.single.subDistrictKtp = {
+                                id: context.id_kecamatan_ktp,
+                                text: context.nama_kecamatan_ktp,
+                            }
+                        }
+                        if (context.nama_kelurahan_ktp && context.id_kelurahan_ktp) {
+                            this.single.villageKtp = {
+                                id: context.id_kelurahan_ktp,
+                                text: context.nama_kelurahan_ktp,
+                            }
+                        }
+                        if (context.rt_ktp !== null) {
+                            this.single.rtKtp = {
+                                id: context.rt_ktp,
+                                text: context.rt_ktp,
+                            }
+                        }
+                        if (context.rw_ktp !== null) {
+                            this.single.rwKtp = {
+                                id: context.rw_ktp,
+                                text: context.rw_ktp,
+                            }
+                        }
+                        this.single.addressKtp = context.alamat_ktp;
+
+                        if (context.tanggal_lahir) {
+                            this.single.dateOfBirth = context.tanggal_lahir;
+                        }
+
+
+
+                        if (context.id_kabupaten_lahir && context.nama_kabupaten_lahir) {
+                            this.single.placeOfBirth = {
+                                id: context.id_kabupaten_lahir,
+                                text: context.nama_kabupaten_lahir
+                            };
+                        }
+
+                        if (context.nama_pendidikan_terakhir && context.id_pendidikan_terakhir) {
+                            this.single.lastEducation = {
+                                id: context.id_pendidikan_terakhir,
+                                text: context.nama_pendidikan_terakhir
+                            };
+                        }
+
+                        if (context.nama_jurusan && context.id_jurusan) {
+                            this.single.jurusan = {
+                                id: context.id_jurusan,
+                                text: context.nama_jurusan
+                            };
+                        }
+
+                        if (context.nama_instansi_pendidikan && context.id_instansi_pendidikan) {
+                            this.single.instansi = {
+                                id: context.id_instansi_pendidikan,
+                                text: context.nama_instansi_pendidikan
+                            };
+                        }
+
+                        if (context.id_m_konselor && context.nama_m_konselor) {
+                            this.single.konselor = {
+                                id: context.id_m_konselor,
+                                text: context.nama_m_konselor + ' - ' + context.phone_number_m_konselor
+                            };
+                        }
+
+                        if (context.tmt_tugas) {
+                            this.single.tmt_tugas = context.tmt_tugas;
+                        }
+
+                        if (context.status) {
+                            this.single.status = {
+                                id: context.status,
+                                text: context.status
+                            }
+                        }
+
+                        this.single.photo_path = context.foto;
+                    })
+                    .catch(error => {
+                        this.$axiosHandleError(error);
+                    }).then(() => {
+                        this.$ewpLoadingHide();
+                    });
+            },
+            getDataTable() {
+                this.tableConfig.config.loading = true;
+                this.tableConfig.feeder.data = [];
+
+                let params = {
+                    page: this.tableConfig.config.current_page,
+                    limit: this.tableConfig.config.show_per_page,
+                    sortby: this.tableConfig.config.sort_by,
+                    order: this.tableConfig.config.order,
+                    search: this.tableConfig.config.search
+                }
+
+                if (this.single.filter.subDistrict.id && this.single.filter.subDistrict.id != '0') {
+                    Object.assign(params, {
+                        id_kecamatan: this.single.filter.subDistrict.id
+                    })
+                }
+
+                if (this.single.filter.village.id && this.single.filter.village.id != '0') {
+                    Object.assign(params, {
+                        id_kelurahan: this.single.filter.village.id
+                    })
+                }
+
+                Api().get(`database/konselor`, {
+                        params
+                    })
+                    .then(response => {
+
+                        let data = response.data.data;
+
+                        this.tableConfig.feeder.data = data;
+                        this.tableConfig.config.total_data = response.data.total;
+
+                        this.tableConfig.config.loading = false;
+                    })
+                    .catch(error => {
+
+                        this.tableConfig.config.loading = false;
+
+                        this.tableConfig.feeder.data = [];
+                        this.tableConfig.config.total_data = 0;
+
+                        this.$axiosHandleError(error);
+                    });
+            },
+            save() {
+                this.v$.$touch();
+                if (this.v$.$error) {
+                    this.$toast.error("Silahkan lengkapi form diatas!");
+                    return false;
+                }
+
+                this.$ewpLoadingShow();
+
+                let formData = new FormData();
+
+                formData.append('id_m_konselor', this.single.konselor.id ? this.single.konselor.id : '');
+                formData.append('tmt_tugas', this.single.tmt_tugas ? this.single.tmt_tugas : '');
+                formData.append('status', this.single.status.id ? this.single.status.id : '');
+
+                formData.append('nik', this.single.nik ? this.single.nik : '');
+                formData.append('id_kabupaten_lahir', this.single.placeOfBirth.id ? this.single.placeOfBirth.id : '');
+                formData.append('tanggal_lahir', this.single.dateOfBirth ? this.single.dateOfBirth : '');
+                formData.append('foto', this.single.photo_file ? this.single.photo_file : '');
+
+
+                formData.append('id_pendidikan_terakhir', this.single.lastEducation.id ? this.single
+                    .lastEducation.id : '');
+                formData.append('id_jurusan', this.single.jurusan.id ? this.single.jurusan.id : '');
+                formData.append('id_instansi_pendidikan', this.single.instansi.id ? this.single.instansi.id : '');
+
+                formData.append('id_kelurahan_domisili', this.single.villageDomicile.id ? this.single.villageDomicile
+                    .id : '');
+                formData.append('alamat_domisili', this.single.addressDomicile ? this.single.addressDomicile : '');
+                formData.append('rt_domisili', this.single.rtDomicile.id ? this.single.rtDomicile.id : 0);
+                formData.append('rw_domisili', this.single.rwDomicile.id ? this.single.rwDomicile.id : 0);
+                formData.append('id_kelurahan_ktp', this.single.villageKtp.id ? this.single.villageKtp.id : '');
+                formData.append('alamat_ktp', this.single.addressKtp ? this.single.addressKtp : '');
+                formData.append('rt_ktp', this.single.rtKtp.id ? this.single.rtKtp.id : 0);
+                formData.append('rw_ktp', this.single.rwKtp.id ? this.single.rwKtp.id : 0);
+                Api().post('database/konselor', formData)
+                    .then(response => {
+                        $("#modal-form").modal('hide');
+
+                        this.$swal({
+                            title: "Berhasil!",
+                            text: 'Menambahkan data Konselor',
+                            icon: "success",
+                        }).then(result => {
+
+                            this.tableConfig.config.current_page = 1;
+
+                            this.getDataTable();
+
+                        });
+                    })
+                    .catch(error => {
+                        this.$axiosHandleError(error);
+                    }).then(() => {
+                        this.$ewpLoadingHide();
+                    });
+            },
+            update() {
+
+                this.v$.$touch();
+                if (this.v$.$error) {
+                    this.$toast.error("Silahkan lengkapi form diatas!");
+                    return false;
+                }
+                let formData = new FormData();
+                formData.append('_method', 'PUT');
+                formData.append('id_m_konselor', this.single.konselor.id ? this.single.konselor.id : '');
+                formData.append('tmt_tugas', this.single.tmt_tugas ? this.single.tmt_tugas : '');
+                formData.append('status', this.single.status.id ? this.single.status.id : '');
+
+                formData.append('nik', this.single.nik ? this.single.nik : '');
+                formData.append('id_kabupaten_lahir', this.single.placeOfBirth.id ? this.single.placeOfBirth.id : '');
+                formData.append('tanggal_lahir', this.single.dateOfBirth ? this.single.dateOfBirth : '');
+                formData.append('foto', this.single.photo_file ? this.single.photo_file : '');
+
+
+                formData.append('id_pendidikan_terakhir', this.single.lastEducation.id ? this.single
+                    .lastEducation.id : '');
+                formData.append('id_jurusan', this.single.jurusan.id ? this.single.jurusan.id : '');
+                formData.append('id_instansi_pendidikan', this.single.instansi.id ? this.single.instansi.id : '');
+
+                formData.append('id_kelurahan_domisili', this.single.villageDomicile.id ? this.single.villageDomicile
+                    .id : '');
+                formData.append('alamat_domisili', this.single.addressDomicile ? this.single.addressDomicile : '');
+                formData.append('rt_domisili', this.single.rtDomicile.id ? this.single.rtDomicile.id : 0);
+                formData.append('rw_domisili', this.single.rwDomicile.id ? this.single.rwDomicile.id : 0);
+                formData.append('id_kelurahan_ktp', this.single.villageKtp.id ? this.single.villageKtp.id : '');
+                formData.append('alamat_ktp', this.single.addressKtp ? this.single.addressKtp : '');
+                formData.append('rt_ktp', this.single.rtKtp.id ? this.single.rtKtp.id : 0);
+                formData.append('rw_ktp', this.single.rwKtp.id ? this.single.rwKtp.id : 0);
+
+                this.$ewpLoadingShow();
+
+                Api().post(`database/konselor/${this.single.id}`, formData)
+                    .then(response => {
+                        $("#modal-form").modal('hide');
+
+                        this.$swal({
+                            title: "Berhasil!",
+                            text: 'Memperbarui data Konselor',
+                            icon: "success",
+                        }).then(result => {
+                            this.getDataTable();
+                        });
+                    })
+                    .catch(error => {
+                        this.$axiosHandleError(error);
+                    }).then(() => {
+                        this.$ewpLoadingHide();
+                    });
+            },
+            changeStatus(id) {
+                this.$ewpLoadingShow();
+                Api().put(`database/konselor/${id}/switch-status`)
+                    .then(response => {
+                        this.$toast.success("Status berhasil diubah!");
+                    })
+                    .catch(error => {
+                        this.$axiosHandleError(error);
+                        this.getDataTable();
+                    }).then(() => {
+                        this.$ewpLoadingHide();
+                    })
+            },
+            getSelectList(url, listKey, pageStatus = 'select-load') {
+                this.pageStatus = pageStatus
+
+                Api().get(url)
+                    .then(response => {
+
+                        this[listKey] = [];
+
+                        for (let i = 0; i < response.data.data.length; i++) {
+                            this[listKey].push({
+                                id: response.data.data[i].id,
+                                text: response.data.data[i].name,
+                            });
+                        }
+
+                    })
+                    .catch(error => {
+                        this[listKey] = [];
+                        this.$axiosHandleError(error);
+                    }).finally(() => {
+                        this.pageStatus = 'standby';
+                    })
+            },
+            getKonselor(keyword, limit) {
+                this.pageStatus = 'konselor-load'
+                Api().get(`m-konselor/lists?limit=${limit}&search=${keyword}`)
+                    .then(response => {
+
+                        this.listKonselor = [];
+
+                        for (let i = 0; i < response.data.data.length; i++) {
+                            this.listKonselor.push({
+                                id: response.data.data[i].id,
+                                text: response.data.data[i].name + ' - ' + response.data.data[i]
+                                    .phone_number,
+                            });
+                        }
+
+                    })
+                    .catch(error => {
+                        this.listKonselor = [];
+                        this.$axiosHandleError(error);
+                    }).finally(() => {
+                        this.pageStatus = 'standby';
+                    })
+            },
+            getLastEducation(keyword, limit) {
+                this.getSelectList(`m-pendidikan-terakhir/lists?limit=${limit}&search=${keyword}`, 'listLastEducation',
+                    'last-education-load')
+            },
+            getJurusan(keyword, limit) {
+                this.getSelectList(`m-jurusan-sekolah/lists?limit=${limit}&search=${keyword}`, 'listJurusan',
+                    'jurusan-load')
+            },
+            getInstansi(keyword, limit) {
+                this.getSelectList(`m-instansi-pendidikan/lists?limit=${limit}&search=${keyword}`, 'listInstansi',
+                    'instansi-load')
+            },
+            getSubDistrict(keyword, limit, listKey, pageStatus) {
+                this.getSelectList(`m-kecamatan/lists?limit=${limit}&search=${keyword}`, listKey,
+                    pageStatus)
+            },
+            getPlaceOfBirth(keyword, limit) {
+                this.getSelectList(`m-kabupaten/lists?limit=${limit}&search=${keyword}`, 'listPlaceOfBirth',
+                    'place-of-birth-load')
+            },
+            getVillage(keyword, limit, subDistrictId = '', listKey, pageStatus) {
+                this.getSelectList(
+                    `m-kelurahan/lists?limit=${limit}&search=${keyword}&id_kecamatan=${subDistrictId}`,
+                    listKey, pageStatus)
+            },
+            reset() {
+                this.v$.$reset();
+
+                this.flag = 'insert';
+
+
+                this.single.id = '';
+                this.single.konselor = {};
+                this.single.tmt_tugas = '',
+                    this.single.status = {};
+                this.single.nik = '';
+                this.single.placeOfBirth = {};
+                this.single.dateOfBirth = '';
+                this.single.lastEducation = {};
+                this.single.jurusan = {};
+                this.single.instansi = {};
+                this.single.subDistrictDomicile = {};
+                this.single.villageDomicile = {};
+                this.single.addressDomicile = '';
+                this.single.rwDomicile = {};
+                this.single.rtDomicile = {};
+                this.single.subDistrictKtp = {};
+                this.single.villageKtp = {};
+                this.single.addressKtp = '';
+                this.single.rwKtp = {};
+                this.single.rtKtp = {};
+                this.single.phone = '';
+                this.single.photo_file = '';
+                this.single.photo_path = '';
+            },
+            choosePhoto() {
+                this.single.photo_path = '';
+                this.single.photo_file = '';
+
+                $('#input-photo').val('');
+                setTimeout(() => {
+                    $('#input-photo').click();
+                }, 500);
+
+            },
+            imageChangePhoto(evt) {
+                evt.preventDefault();
+                evt.stopImmediatePropagation();
+
+                const conteks = window.$(evt.target)
+                const that = this;
+                if (window.FileReader) {
+                    const fileReader = new FileReader();
+                    const files = document.getElementById(conteks.attr('id')).files;
+                    if (!files.length) {
+                        return;
+                    }
+                    const file = files[0];
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            var files = evt.target.files || event.dataTransfer.files;
+                            if (!files.length) {
+                                return;
+                            }
+
+                            const size = file.size;
+
+                            if (Math.round(size) > 5 * 1024 * 1024) {
+                                that.$swal({
+                                    title: "Peringatan!",
+                                    text: 'Ukuran gambar tidak boleh melebihi 5 MB',
+                                    icon: "warning",
+                                })
+                                return;
+                            }
+
+                            that.single.photo_path = fileReader.result;
+                            that.single.photo_file = files[0];
+                        };
+                    } else {
+                        this.$swal({
+                            title: 'Peringatan!',
+                            text: 'File yang anda pilih belum termasuk gambar!',
+                            icon: 'warning',
+                        })
+                    }
+                }
+            },
+            getTemplateImport() {
+                this.$ewpLoadingShow();
+                Api().get('database/konselor/download-format', {
+                    responseType: 'blob',
+                }).then(response => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'FORMAT IMPORT KONSELOR.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                }).catch(error => {
+                    this.$axiosHandleError(error);
+                }).then(() => {
+                    this.$ewpLoadingHide();
+                });
+            },
+            saveImport() {
+                let formData = new FormData();
+
+                let valid = false;
+                if (!$.isEmptyObject(this.dropzoneImport.files)) {
+                    for (let file in this.dropzoneImport.files) {
+                        valid = true;
+                        formData.append('file', this.dropzoneImport.files[file]);
+                    }
+                }
+
+                if (!valid) {
+                    this.$toast.info("Pilih file terlebih dahulu!");
+                    return false;
+                }
+                this.listErrorImport = [];
+                this.$ewpLoadingShow();
+
+                Api().post(`database/konselor/import`, formData)
+                    .then(response => {
+                        $(".modal").modal('hide');
+
+                        this.$swal({
+                            title: "Berhasil!",
+                            text: 'Import data Konselor',
+                            icon: "success",
+                        }).then(result => {
+                            this.tableConfig.config.current_page = 1;
+                            this.getDataTable();
+                        });
+                    })
+                    .catch(error => {
+                        let res = error.response ? error.response.data.data : [];
+                        let code = error.response ? error.response.status : null;
+
+                        if (code == 422) {
+                            for (let i = 0; i < res.length; i++) {
+                                const index = this.listErrorImport.findIndex((e) => e.row == res[i].row)
+                                if (index >= 0) {
+                                    this.listErrorImport[index].note = this.listErrorImport[index].note.concat(res[
+                                        i].errors);
+                                } else {
+                                    this.listErrorImport.push({
+                                        row: res[i].row,
+                                        note: res[i].errors
+                                    })
+                                }
+                            }
+                        }
+                        this.$axiosHandleError(error);
+                    }).then(() => {
+                        this.$ewpLoadingHide();
+                    });
+            },
+            getSubDistrictFilter(keyword, limit) {
+                this.pageStatus = 'sub-district-filter-load';
+
+                Api().get(`m-kecamatan/lists?search=${keyword}&limit=${limit}`)
+                    .then(response => {
+
+                        this.listSubDistrictFilter = [{
+                            id: '0',
+                            text: 'Semua'
+                        }];
+
+                        for (let i = 0; i < response.data.data.length; i++) {
+                            this.listSubDistrictFilter.push({
+                                id: response.data.data[i].id,
+                                text: response.data.data[i].name,
+                            });
+                        }
+
+                    })
+                    .catch(error => {
+                        this.listSubDistrictFilter = [{
+                            id: '0',
+                            text: 'Semua'
+                        }];
+                        this.$axiosHandleError(error);
+                    }).finally(() => {
+                        this.pageStatus = 'standby';
+                    })
+            },
+            getVillageFilter(keyword, limit) {
+                this.pageStatus = 'village-filter-load';
+
+                Api().get(
+                        `m-kelurahan/lists?search=${keyword}&limit=${limit}&id_kecamatan=${this.single.filter.subDistrict.id}`
+                    )
+                    .then(response => {
+
+                        this.listVillageFilter = [{
+                            id: '0',
+                            text: 'Semua'
+                        }];
+
+                        for (let i = 0; i < response.data.data.length; i++) {
+                            this.listVillageFilter.push({
+                                id: response.data.data[i].id,
+                                text: response.data.data[i].name,
+                            });
+                        }
+
+                    })
+                    .catch(error => {
+                        this.listVillageFilter = [{
+                            id: '0',
+                            text: 'Semua'
+                        }];
+                        this.$axiosHandleError(error);
+                    }).finally(() => {
+                        this.pageStatus = 'standby';
+                    })
+            },
+            pdfGenerate(id, name){
+                this.$ewpLoadingShow();
+                Api().get(`database/konselor/${id}/cetak-pdf`, {
+                    responseType: 'blob',
+                }).then(response => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', `Profile ${name}.pdf`);
+                    document.body.appendChild(link);
+                    link.click();
+                }).catch(error => {
+                    this.$axiosHandleError(error);
+                }).then(() => {
+                    this.$ewpLoadingHide();
+                });
+            },
+            exportData(){
+                this.$ewpLoadingShow();
+                Api().get(`database/konselor/export`, {
+                    responseType: 'blob',
+                }).then(response => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', `Export Konselor.xlsx`);
+                    document.body.appendChild(link);
+                    link.click();
+                }).catch(error => {
+                    this.$axiosHandleError(error);
+                }).then(() => {
+                    this.$ewpLoadingHide();
+                });
+            }
+        }
+    }
+
+</script>
+
+<style scoped>
+
+</style>

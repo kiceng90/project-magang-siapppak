@@ -1,0 +1,125 @@
+.pu_sermons_part_wrapper{
+    border: 1px solid #e0dcdc;
+    padding: 37px 40px;
+    text-align: center;
+    background-color: #fff;
+    position: relative;
+    @media #{$tab}{
+        margin-bottom: 30px;;
+    }
+    @media #{$medium_device}{
+        margin-bottom: 30px;;
+    }
+    &:after{
+        position: absolute;
+        height: 3px;
+        width: 0%;
+        background-color: $base_color_3;
+        content: "";
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        @include transform_time(.3s);
+    }
+    @media #{$tab}{
+        padding: 40px 20px;
+    }
+    .sermons_img{
+        border-radius: 50%;
+        border: 2px solid #e0dcdc;
+        padding: 10px;
+        background-color: #f4f4f4;
+        margin-bottom: 13px;
+        @media #{$tab}{
+            max-width: 90%;
+        }
+    }
+    p{
+        font-size: 13px;
+        font-family: $bar_font;
+        color: rgb(123, 127, 133);
+    }
+    .name{
+        font-size: 18px;
+        font-family: $pl_font;
+        color: rgb(39, 46, 59);
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.2;
+        position: relative;
+        z-index: 1;
+        margin-bottom: 38px;
+        &:after{
+            position: absolute;
+            left: 0;
+            bottom: -20px;
+            width: 100px;
+            height: 2px;
+            content: "";
+            right: 0;
+            margin: 0 auto;
+            background-color: $base_color_3;
+        }
+    }
+    .title{
+        font-size: 24px;
+        font-family: $pl_font;
+        color: rgb(39, 46, 59);
+        font-weight: bold;
+        line-height: 1.167;
+        a{
+            color: rgb(39, 46, 59);
+            &:hover{
+                color: $base_color_3;
+            }
+        }
+    }
+    .sermons_meta_list{
+        margin-top: 23px;
+        a{
+            display: inline-block;
+            margin: 0 11px;
+        }
+    }
+    .pu_date{
+        background-color: rgb(47, 42, 55);
+        position: absolute;
+        text-align: center;
+        color: $white;
+        text-transform: uppercase;
+        left: 15px;
+        top: 15px;
+        font-size: 14px;
+        padding: 2px 10px;
+    }
+    &:hover{
+        &:after{
+            width: 100%;
+        }
+        .pu_date{
+            background-color: rgb(201, 68, 56);
+            box-shadow: 0px 3px 15px 0px rgba(201, 68, 56, 0.25);
+            color: #fff;
+        }
+    }
+}
+.our_sermons_part{
+    position: relative;
+    z-index: 1;
+    .shape_1{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        max-width: 100%;
+    }
+    .shape_2{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: -1;
+        max-width: 100%;
+    }
+}

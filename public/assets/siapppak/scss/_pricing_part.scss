@@ -1,0 +1,102 @@
+.pricing_part {
+    position: relative;
+    z-index: 1;
+
+    &:after {
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        background-color: #292937;
+        width: 100%;
+        height: 100%;
+        opacity: .7;
+        z-index: -1;
+    }
+}
+
+.pu_pricing_plan {
+    padding: 50px 50px 60px;
+    position: relative;
+    border-style: solid;
+    border-width: 2px;
+    background-color: rgba(29, 33, 34, 0);
+    @include transform_time(.3s);
+    @media #{$tab} {
+        margin-bottom: 30px;
+        padding: 30px 20px;
+    }
+    @media #{$medium_device} {
+        padding: 30px 20px;
+    }
+    .pu_top_pricing_plan {
+        text-align: center;
+        padding: 8px 0 0px 0;
+        @include transform_time(.3s);
+        border-bottom: 2px solid rgba($color: #ffffff, $alpha: .2);
+    }
+    .title {
+        font-size: 14px;
+        font-family: $raj_font;
+        color: rgb(250, 247, 227);
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1;
+        margin-bottom: 20px;
+    }
+    .price {
+        color: $base_color;
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        font-size: 120px;
+        font-weight: 700;
+        line-height: 80px;
+        .pu_currancy {
+            color: #fff;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+    }
+    .pricing_list {
+        margin: 0;
+        padding: 0;
+        margin-top: 35px;
+        li {
+            list-style: none;
+            font-weight: 500;
+            margin: 20px 0;
+            color: #fff;
+            font-size: 16px;
+            font-family: $raj_font;
+            color: rgb(250, 247, 227);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        i {
+            margin-right: 20px;
+            color: $base_color_2;
+        }
+    }
+    .cu_btn{
+        font-size: 16px;
+        border: 2px solid rgba($color: #fff, $alpha: .2);
+        margin-top: 16px;
+        i{
+            margin-right: 10px;
+        }
+    }
+    &:hover {
+        border: 2px solid $base_color;
+        .pu_top_pricing_plan {
+            border-bottom: 2px solid rgba($color: #ffffff, $alpha: 1);
+        }
+        .cu_btn{
+            background-color: $base_color_2;
+            border: 2px solid $base_color_2;
+        }
+    }
+}
+

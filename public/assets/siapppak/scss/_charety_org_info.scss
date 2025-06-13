@@ -1,0 +1,33 @@
+.pu_charety_org_info{
+    background-color: #f0eeec;
+}
+.pu_charety_org_info_wrapper{
+    position: relative;
+    padding-left: 100px;
+    @media #{$tab}{
+        margin-bottom: 30px;
+    } 
+    @media #{$medium_device}{
+        margin-bottom: 30px;
+    }
+    .pu_icon{
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .info_inner{
+        font-size: 18px;
+        color: #636886;
+    }
+    h5,a{
+        font-size: 24px;
+        font-family: $raj_font;
+        color: rgb(54, 58, 87);
+        font-weight: bold;
+        line-height: 1.2;
+        @media #{$tab}{
+            font-size: 16px;
+        }
+    }
+}

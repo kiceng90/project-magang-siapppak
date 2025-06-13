@@ -1,0 +1,200 @@
+/*----------------------------------------------------
+@File: Default Styles
+
+This file contains the styling for the actual template, this
+is the file you need to edit to change the look of the
+template.
+---------------------------------------------------- */
+/*=====================================================================
+@Template Name: puregiven
+@Author: 
+@Developed By: Ajanta Das
+@Developer URL: 
+Author E-mail: 
+
+@Default Styles
+
+Table of Content:
+01/ Variables
+02/ mixins
+03/ reset
+04/ button
+05/ search
+06/ scorll
+07/ tooltip
+08/ header
+09/ banner part
+10/ fearure part
+11/ client list section
+12/ contact section
+13/ icon box
+14/ featured list
+15/ popular part
+16/ cta part
+17/ total impact content
+18/ volunteer list
+19/ event
+20/ gallery slider 
+21/ testimonial slider
+22/ blog post
+23/ logo slider
+24/ volunteer application
+25/ charety org info 
+26/ pricing part
+27/ services part 
+28/ faq
+29/ sermons part
+30/ beadcrumb part
+31/ causes details
+32/ donate form wrapper
+33/ event details 
+34/ contact part
+35/ contact form part
+36/ sidebar form part
+37/ blog details part
+38/ gallery details part
+39/ gallery part
+40/ surmons details part
+41/ product list part
+42/ cart list part
+43/ checkout part
+44/ product details part
+45/ team details
+46/ modal part
+47/ footer section
+=====================================================================*/ 
+
+//variables css
+@import "variables";
+
+//mixins css
+@import "mixins";
+
+//reset css
+@import "reset";
+
+//button css
+@import "button";
+
+//search section css
+@import "search";
+
+//scorll section css
+@import "scorll";
+
+//tooltip part style css
+@import "tooltip";
+
+//header part style css
+@import "header";
+
+//header part style css
+@import "banner_part";
+
+//fearure part style css
+@import "fearure_part";
+
+//about part style css
+@import "about";
+
+//popular part style css
+@import "popular_causes";
+
+//cta part style css
+@import "cta";
+
+//total impact content style css
+@import "total_impact_content";
+
+//volunteer list style css
+@import "volunteer_list";
+
+//event list style css
+@import "event";
+
+//gallery slider style css
+@import "gallery_slider";
+
+//testimonial slider style css
+@import "testimonial_slider";
+
+//blog post style css
+@import "blog_post";
+
+//logo slider style css
+@import "logo_slider";
+
+//volunteer application style css
+@import "volunteer_application";
+
+//charety org info style css
+@import "charety_org_info";
+
+//pricing part style css
+@import "pricing_part";
+
+//services style css
+@import "services";
+
+//faq style css
+@import "faq";
+
+//sermons part css
+@import "sermons_part";
+
+//beadcrumb part css
+@import "beadcrumb_part";
+
+//causes details part css
+@import "causes_details";
+
+//donate form wrapper part css
+@import "donate_form_wrapper";
+
+//event details part css
+@import "event_details";
+
+//contact part css
+@import "contact";
+
+//contact form part css
+@import "contact_form";
+
+//sidebar form part css
+@import "sidebar";
+
+//blog details part css
+@import "blog_details";
+
+//blog details part css
+@import "become_volunteer";
+
+//gallery details part css
+@import "gallery_details_part";
+
+//gallery part css
+@import "gallery_filter";
+
+//surmons details part css
+@import "surmons_details";
+
+//product list part css
+@import "product_list";
+
+//cart list part css
+@import "cart";
+
+//checkout part css
+@import "checkout";
+
+//product details part css
+@import "product_details";
+
+//team details css
+@import "team_details_content";
+
+//modal part css
+@import "modal";
+
+//footer section css
+@import "footer";

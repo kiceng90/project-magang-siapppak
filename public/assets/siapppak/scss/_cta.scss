@@ -1,0 +1,126 @@
+.pu_cta_part_wrapper{
+    @media #{$big_device}{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .title{
+        font-size: 48px;
+        font-weight: 700;
+        color: $white;
+        margin-bottom: 0;
+        @media #{$tab}{
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+    }
+}
+.cta_part{
+    padding: 90px 0;
+    @media #{$tab}{
+        padding: 70px 0;
+    }
+}
+.pu_dark_cta_part{
+    &.sec_padding{
+       padding: 125px 0 275px; 
+       @media #{$tab}{
+          padding: 70px 0 275px;
+       }
+    }
+    &.index_02_cta_bg{
+        background-image: url(../img/dark_cta_bg.jpg);
+    }
+}
+.pu_dark_cta_part_content{
+    text-align: center;
+    .title{
+        font-size: 60px;
+        font-weight: 700;
+        font-family: $pl_font;
+        color: $white;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        @media #{$tab}{
+            font-size: 30px;
+        }
+        @media #{$medium_device}{
+            font-size: 45px;
+        }
+        a{
+            color: #d1b842;
+        }
+    }
+    .description{
+        font-size: 20px;
+        font-weight: 700;
+        font-family: $bar_font;
+        text-transform: uppercase;
+        color: $white;
+        a{
+            color: $white;
+            text-decoration: underline;
+        }
+    }
+}
+.pu_subscribe_form{
+    text-align: center;
+    background-color: $base_color_3;
+    padding: 73px 0 80px;
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -385px;
+    @media #{$tab}{
+        max-width: 90%;
+        padding: 70px 20px 80px;
+    }
+    .title{
+        font-size: 28px;
+        font-weight: 700;
+        font-family: $pl_font;
+        text-transform: uppercase;
+        margin-bottom: 33px;
+        color: $white;
+        @media #{$mobile}{
+            font-size: 20px;
+        }
+    }
+    .form-control{
+        height: 50px;
+        line-height: 50px;
+        padding: 8px 40px;
+        font-size: 14px;
+        color: #7c7a71;
+        font-family: $base_color_3;
+        border-radius: 5px 0 0 5px;
+        border: 0px solid transparent;
+        &:hover{
+            color: $heading_color;
+        }
+    }
+    .input-group{
+        @media #{$mobile}{
+            display: block;
+        }
+    }
+    .input-group-text{
+        background-color: #02bda3;
+        text-transform: uppercase;
+        color: $white;
+        text-transform: uppercase;
+        font-size: 12px;
+        padding: 10px 38px;
+        border-radius: 0 5px 5px 0;
+        border: 0px solid transparent;
+        @media #{$mobile}{
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px 38px;
+            font-size: 15px;
+        }
+    }
+}

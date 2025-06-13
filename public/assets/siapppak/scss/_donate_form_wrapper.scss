@@ -1,0 +1,69 @@
+.pu_donate_form_wrapper{
+    background-color: #f0eeec;
+    padding: 54px 50px;
+    @media #{$tab}{
+        padding: 30px 20px;
+        margin-bottom: 60px;
+    }
+    @media #{$medium_device}{
+        padding:30px 20px;
+    }
+    .donate_form_title{
+        font-size: 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1;
+        margin-bottom: 4px;
+    }
+    .form-row>.col, .form-row>[class*=col-] {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .donate_amount_btn{
+        height: 90px;
+        width: 100%;
+        background-color: $white;
+        border: 2px solid #fff;
+        line-height: 90px;
+        text-align: center;
+        font-size: 24px;
+        font-family: $raj_font;
+        color: rgb(117, 117, 117);
+        font-weight: bold;
+        line-height: 1.2;
+        padding: 10px;
+        margin-top: 20px;
+        @media #{$tab}{
+            height: 50px;
+            line-height: 50px;
+            padding: 2px 10px;
+        }
+    }
+    input.donate_amount_btn{
+        text-align: left;
+        padding: 10px 80px;
+    }
+    .niceSelect, .cu_input{
+        height: 70px;
+        line-height: 70px;
+        padding: 10px 45px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #757575;
+        margin-top: 20px;
+        border-radius: 0;
+        border: 2px solid #fff;
+        @media #{$tab}{
+            padding: 10px 20px;
+        }
+    }
+    .niceSelect{
+        line-height: 42px;
+        &:after {
+            height: 8px;
+            right: 30px;
+            top: 43%;
+            width: 8px;
+        }
+    }
+}

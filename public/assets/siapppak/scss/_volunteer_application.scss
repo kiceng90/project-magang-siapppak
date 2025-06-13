@@ -1,0 +1,51 @@
+.volunteer_application_form{
+    background-color: $base_color_2;
+}
+.pu_volunteer_application_content{
+    padding-right: 50px;
+    @media #{$mobile}{
+        padding-left: 0;
+        margin-bottom: 45px;
+    }
+    .title{
+        font-size: 42px;
+        font-family: $raj_font;
+        color: rgb(250, 247, 227);
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1.143;
+        margin-bottom: 21px;
+        @media #{$tab}{
+            font-size: 30px;
+        }
+    }
+    .desc{
+        color: #faf7e3;
+    }
+}
+.volunteer_application_form_inner{
+    .cu_input{
+        background-color: #fff;
+        border: 1px solid #fff;
+        color: #a2a2b1;
+        font-size: 16px;
+        padding: 15px 25px;
+        margin-bottom: 30px;
+        @media #{$mobile}{
+            margin-bottom: 15px;
+        }
+    }
+    .form-group{
+        margin-bottom: 0;
+    }
+    .cu_btn{
+        display: block;
+        width: 100%;
+        text-align: center;
+        &:hover{
+            background-color: $white;
+            border: 2px solid $white;
+            color: $base_color_2;
+        }
+    }
+}

@@ -1,0 +1,86 @@
+.pu_accordion_item {
+    padding: 30px;
+    border-bottom: 0px solid transparent;
+    background-color: rgba($color: #fff, $alpha: .03);
+    margin-bottom: 10px;
+    @include transform_time(.3s);
+    position: relative;
+    z-index: 1;
+    &:after{
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        width: 3px;
+        height: 0%;
+        background-color: $base_color_3;
+        @include transform_time(.3s);
+    }
+    .pu_accordion_icon{
+        position: absolute;
+        left: -42px;
+        top: -4px;
+    }
+    
+    .pu_accordion_item_title{
+        position: relative;
+    }
+    .pu_accordion_thumb{
+        max-width: 100%;
+        @media #{$tab}{
+            margin-top: 30px;
+        }
+        @media #{$big_device}{
+            position: absolute;
+            right: -100%;
+            top: 0;
+        }
+    }
+    .pu_accordion_title {
+        cursor: pointer;
+        position: relative;
+        margin-bottom: 0;
+        font-weight: 600;
+        line-height: 20px;
+        font-size: 14px;
+        font-family: $bar_font;
+        color: rgb(128, 126, 131);
+        text-transform: uppercase;
+        &::before {
+            content: '\f067';
+            display: inline-block;
+            height: 7px;
+            width: 7px;
+            font-family: "Font Awesome 5 Free";
+            transition: transform .2s ease-out;
+            right: 6px;
+            top: 14%;
+            position: absolute;
+        }
+    }
+    .pu_accordion_panel {
+        display: none;
+        padding-top: 20px;
+    }
+    .pu_desc{
+        color: #807e83;
+    }
+    &.is-active {
+        background-color: transparent;
+        &:after{
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background-color: $base_color_3;
+        }
+        .pu_accordion_title{
+            color: #ffffff;
+        }
+        .pu_accordion_title::before {
+            content: '\f068';
+        }
+    }
+}

@@ -1,0 +1,218 @@
+.popup-close-button {
+    position: fixed;
+    top: 80px;
+    right: 90px;
+    z-index: 100000;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    color: #111;
+    -webkit-transition: all .3s linear 0s;
+    transition: all .3s linear 0s
+}
+
+.popup-close-button .burger-icon-top,
+.popup-close-button .burger-icon-bottom {
+    display: block;
+    position: absolute;
+    top: 19px;
+    left: 5px;
+    width: 29px;
+    height: 3px;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1);
+    transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1);
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1);
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1), -webkit-transform .6s cubic-bezier(.165, .84, .44, 1)
+}
+
+.popup-close-button .burger-icon-top:before,
+.popup-close-button .burger-icon-top:after,
+.popup-close-button .burger-icon-bottom:before,
+.popup-close-button .burger-icon-bottom:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: currentColor;
+    opacity: .99
+}
+
+.popup-close-button .burger-icon-top:before,
+.popup-close-button .burger-icon-bottom:before {
+    -webkit-transform-origin: right;
+    -ms-transform-origin: right;
+    transform-origin: right;
+    -webkit-transform: scaleX(1) translateZ(0);
+    transform: scaleX(1) translateZ(0);
+    -webkit-transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1) .2s;
+    transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1) .2s;
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1) .2s;
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1) .2s, -webkit-transform .6s cubic-bezier(.165, .84, .44, 1) .2s
+}
+
+.popup-close-button .burger-icon-top:after,
+.popup-close-button .burger-icon-bottom:after {
+    -webkit-transform-origin: left;
+    -ms-transform-origin: left;
+    transform-origin: left;
+    -webkit-transform: scaleX(0) translateZ(0);
+    transform: scaleX(0) translateZ(0);
+    -webkit-transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1);
+    transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1);
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1);
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1), -webkit-transform .6s cubic-bezier(.165, .84, .44, 1)
+}
+
+.popup-close-button .burger-icon-top {
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg)
+}
+
+.popup-close-button .burger-icon-bottom {
+    -webkit-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+    transform: rotate(225deg)
+}
+
+.popup-close-button .burger-icon-bottom:before {
+    -webkit-transform-origin: left;
+    -ms-transform-origin: left;
+    transform-origin: left
+}
+
+.popup-close-button .burger-icon-bottom:after {
+    -webkit-transform-origin: right;
+    -ms-transform-origin: right;
+    transform-origin: right
+}
+
+.popup-close-button:hover .burger-icon-top:before,
+.popup-close-button:hover .burger-icon-bottom:before {
+    -webkit-transform: scaleX(0) translateZ(0);
+    transform: scaleX(0) translateZ(0);
+    -webkit-transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1);
+    transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1);
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1);
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1), -webkit-transform .6s cubic-bezier(.165, .84, .44, 1)
+}
+
+.popup-close-button:hover .burger-icon-top:after,
+.popup-close-button:hover .burger-icon-bottom:after {
+    -webkit-transform: scaleX(1) translateZ(0);
+    transform: scaleX(1) translateZ(0);
+    -webkit-transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1) .2s;
+    transition: -webkit-transform .6s cubic-bezier(.165, .84, .44, 1) .2s;
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1) .2s;
+    transition: transform .6s cubic-bezier(.165, .84, .44, 1) .2s, -webkit-transform .6s cubic-bezier(.165, .84, .44, 1) .2s
+}
+
+.page-popup {
+    -webkit-transition: all .35s ease-in-out;
+    transition: all .35s ease-in-out;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    visibility: hidden;
+    overflow: hidden;
+    overflow-y: auto;
+    opacity: 0;
+    -webkit-transform: scale(.8);
+    -ms-transform: scale(.8);
+    transform: scale(.8)
+}
+
+.page-popup.open {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out
+}
+
+.page-popup.open .popup-close-button {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition-delay: .6s;
+    transition-delay: .6s
+}
+
+@media (max-width:767px) {
+    .popup-close-button {
+        top: 30px;
+        right: 30px
+    }
+}
+
+.admin-bar .page-search-popup {
+    top: 32px;
+    height: calc(100% - 32px)
+}
+
+.page-search-popup .page-search-popup-content {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%
+}
+
+.page-search-popup .search-form {
+    position: relative;
+    color: #086ad8;
+    width: 1170px;
+    max-width: 90%;
+    margin: 0 auto;
+    -webkit-transform: translate(0, 50px);
+    -ms-transform: translate(0, 50px);
+    transform: translate(0, 50px);
+    -webkit-transition: all .5s ease-in-out, opacity .5s linear;
+    transition: all .5s ease-in-out, opacity .5s linear;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+    opacity: 0
+}
+
+.page-search-popup .search-field {
+    font-size: 50px;
+    height: 100px;
+    background-color: transparent !important;
+    border: 0 solid #111;
+    border-bottom-width: 3px;
+    border-radius: 0;
+    padding: 15px 50px 15px 0;
+    color: inherit;
+    @media #{$tab}{
+        font-size: 30px;
+        height: 60px;
+    }
+}
+
+.page-search-popup .search-submit {
+    display: none
+}
+
+.page-search-popup.open .search-form {
+    opacity: 1;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+    -webkit-transition-delay: .5s;
+    transition-delay: .5s
+}
+.page-search-popup {
+    background: rgb(255 255 255 / 90%);
+}

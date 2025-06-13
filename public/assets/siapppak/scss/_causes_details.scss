@@ -1,0 +1,173 @@
+.pu_causes_details_thumb{
+    position: relative;
+    .causes_details_title{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 55px 80px;
+        @media #{$tab}{
+            padding: 15px;
+        }
+        @media #{$mobile}{
+            padding: 15px;
+            position: relative;
+        }
+    }
+    .sub_title{
+        background-color: $white;
+        display: inline-flex;
+        align-items: center;
+        border-radius: 50px;
+        padding: 0 28px 0 0;
+        font-size: 14px;
+        font-weight: 700;
+        img{
+            padding-right: 15px;
+        }
+    }
+    .title {
+        font-size: 60px;
+        color: rgb(250, 247, 227);
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 0.967;
+        margin-top: 22px;
+        margin-bottom: 0;
+        @media #{$tab}{
+            font-size: 30px;
+        }
+        @media #{$mobile}{
+            color: $heading_color;
+        }
+    }
+}
+.pu_causes_details_content{
+    padding: 50px;
+    border: 1px solid #dadde2;
+    border-top: 0px solid transparent ;
+    @media #{$mobile}{
+        padding: 0;
+        border: 0px solid transparent;
+    }
+    .progress_bar{
+        padding: 50px;
+        background-color: #e9eaef;
+        @media #{$mobile}{
+            padding: 20px;
+        }
+        .amount{
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        .desc{
+            font-size: 12px;
+            color: #7b7f85;
+            font-weight: 400;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+        .percentCount {
+            font-weight: 700;
+            font-size: 14px;
+            color: $heading_color;
+            font-family: $raj_font;
+            position: absolute;
+            top: -36px;
+            right: 0;
+            margin-top: 0;
+        }
+        .progressbar {
+            background-color: #fff;
+        }
+    }
+    .pu_donate_form{
+        margin-top: 28px;
+        .form-control{
+            border: 0px solid transparent;
+            height: 50px;
+            line-height: 50px;
+        }
+        .input-group{
+            border: 2px solid #f0eeec;
+        }
+        .pu_form_row{
+            margin-bottom: 20px;
+        }
+        .input-group-text{
+            border: 0px solid transparent;
+            border-right: 2px solid #f0eeec;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 47px;
+            width: 47px;
+            background-color: #fbfafa;
+            border-radius: 0px;
+        }
+        .btn_list{
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            .donate_btn{
+                margin-right: 10px;
+                border: 2px solid #f0eeec;
+                height: 46px;
+                width: 115px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: transparent;
+                color: #4c5a74;
+                font-weight: 500;
+                text-align: center;
+                @media #{$tab}{
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+    .img_list{
+        margin-top: 50px;
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+        -webkit-column-gap: 30px;
+        -moz-column-gap: 30px;
+        column-gap: 30px;
+        orphans: 1;
+        widows: 1;
+        @media #{$xs_mobile}{
+            -webkit-column-count: 1;
+            -moz-column-count: 1;
+            column-count: 1;
+        }
+        @media #{$large_mobile}{
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
+            column-count: 2;
+        }
+        img{
+            border-radius: 5px;
+            width: 100%;
+            @media #{$mobile}{
+                margin-bottom: 30px;
+            }
+        }
+    }
+    .img_list + p{
+        margin-top: 30px;
+    }
+    .img_list + p + p{
+        margin-top: 30px;
+    }
+}
+
+.popular_causes_list_section{
+    .popular_causes_list_wrapper{
+        margin-bottom: 30px;
+    }
+}

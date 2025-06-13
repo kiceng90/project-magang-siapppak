@@ -1,0 +1,201 @@
+.pu_event_details_thumb{
+    position: relative;
+    .event_thumb_inner{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 55px 80px;
+        @media #{$tab}{
+            padding: 15px;
+        }
+        @media #{$medium_device}{
+            bottom: 200px;
+        }
+        @media #{$mobile}{
+            padding: 15px;
+            position: relative;
+        }
+    }
+    .title {
+        font-size: 60px;
+        color: rgb(250, 247, 227);
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 0.967;
+        margin-top: 22px;
+        margin-bottom: 0;
+        @media #{$tab}{
+            font-size: 30px;
+        }
+        @media #{$mobile}{
+            color: $heading_color;
+        }
+    }
+    .event_date{
+        background-color: #c81e4f;
+        font-size: 29px;
+        font-family: $bar_font;
+        color: rgb(255, 255, 255);
+        font-weight: 700;
+        text-transform: uppercase;
+        width: 70px;
+        height: 90px;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        text-align: center;
+        padding-top: 5px;
+        margin-right: 30px;
+        
+        span{
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #fff;
+            width: 100%;
+            display: block;
+            text-align: center;
+            padding: 2px 2px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background-color: #c24033;
+        }
+    }
+    .pu_countdown_content{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        @media #{$tab}{
+            position: relative;
+        }
+        @media #{$medium_device}{
+            position: relative;
+        }
+    }
+    .pu_countdown_running{
+        background-color: $base_color;
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+        -webkit-column-gap: 5px;
+        -moz-column-gap: 5px;
+        column-gap: 5px;
+        orphans: 1;
+        widows: 1;
+        padding: 30px;
+        @media #{$mobile}{
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
+            column-count: 2;
+        }
+        .pu_countdown_inner{
+            text-align: center;
+            background-color: $white;
+            padding: 20px 17px;
+            @media #{$xs_mobile}{
+                margin-bottom: 5px;
+            }
+            span{
+                font-size: 30px;
+                font-weight: 700;
+                color: $heading_color;
+                margin-bottom: 6px;
+                line-height: 1;
+            }
+            .pu_desc{
+                font-size: 11px;
+                font-weight: 500;
+                color: #636886;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+.pu_event_details_content{
+    .title{
+        margin-top: 65px;
+        font-size: 30px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        font-weight: 700;
+        @media #{$tab}{
+           font-size: 30px;
+        }
+    }
+    .desc{
+        margin-bottom: 40px;
+    }
+    .img_list{
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+        -webkit-column-gap: 30px;
+        -moz-column-gap: 30px;
+        column-gap: 30px;
+        orphans: 1;
+        widows: 1;
+        img{
+            border-radius: 5px;
+            width: 100%;
+        }
+    }
+}
+
+.pu_event_sidebar_wrapper{
+    background-color: #f0eeec;
+    padding: 40px;
+    @media #{$tab}{
+        padding: 20px;
+        margin-top: 40px;
+    }
+    @media #{$medium_device}{
+        padding: 20px;
+    }
+    .pu_sidebar_title{
+        margin-bottom: 35px;
+        padding: 16px 20px;
+        text-align: center;
+        background-color: $white;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    .event_list_meta{
+        margin: 0;
+        padding: 0;
+        li{
+            list-style: none;
+            margin-top: 24px;
+            position: relative;
+            padding-left: 50%;
+            font-size: 16px;
+            span{
+                font-weight: 700;
+                color: $heading_color;
+                position: absolute;
+                left: 0;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+.pu_event_sidebar_map{
+    .map{
+        height: 330px;
+    }
+}
+.pu_event_slider{
+    .pu_upcoming_event_description .social_tooltip_wrapper {
+        padding: 5px 20px;
+        bottom: -45px;
+        left: auto;
+        right: 0;
+        border: 0px solid transparent;
+        background-color: transparent;
+        p{
+            display: none;
+        }
+        &:after{
+            display: none;
+        }
+    }
+}
