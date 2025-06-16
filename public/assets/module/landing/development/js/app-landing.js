@@ -30275,7 +30275,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
@@ -30283,17 +30282,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return _defineProperty({
-      ROLE_ADMIN_ID: process.env.MIX_ROLE_ADMIN_ID,
-      ROLE_KABID_ID: process.env.MIX_ROLE_KABID_ID,
-      ROLE_KADIS_ID: process.env.MIX_ROLE_KADIS_ID,
-      ROLE_KONSELOR_ID: process.env.MIX_ROLE_KONSELOR_ID,
-      ROLE_SUBKORD_ID: process.env.MIX_ROLE_SUBKORD_ID,
-      ROLE_OPD_ID: process.env.MIX_ROLE_OPD_ID,
-      ROLE_HOTLINE_ID: process.env.MIX_ROLE_HOTLINE_ID,
-      ROLE_ASISTEN_ID: process.env.MIX_ROLE_ASISTEN_ID,
-      ROLE_KECAMATAN_ID: process.env.MIX_ROLE_KECAMATAN_ID,
-      ROLE_KELURAHAN_ID: process.env.MIX_ROLE_KELURAHAN_ID
-    }, "ROLE_ASISTEN_ID", process.env.MIX_ROLE_ASISTEN_ID);
+      ROLE_ADMIN_ID: "1",
+      ROLE_KABID_ID: "2",
+      ROLE_KADIS_ID: "3",
+      ROLE_KONSELOR_ID: "4",
+      ROLE_SUBKORD_ID: "5",
+      ROLE_OPD_ID: "6",
+      ROLE_HOTLINE_ID: "7",
+      ROLE_ASISTEN_ID: "8",
+      ROLE_KECAMATAN_ID: "10",
+      ROLE_KELURAHAN_ID: "9"
+    }, "ROLE_ASISTEN_ID", "8");
   }
 });
 
@@ -85588,7 +85587,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_landing_datapublik_mahasiswamsib_Index_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/views/landing/datapublik/mahasiswamsib/Index.vue */ "./resources/js/views/landing/datapublik/mahasiswamsib/Index.vue");
 /* harmony import */ var _views_errors_404_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/views/errors/404.vue */ "./resources/js/views/errors/404.vue");
 /* harmony import */ var _views_errors_403_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/views/errors/403.vue */ "./resources/js/views/errors/403.vue");
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -85790,7 +85788,7 @@ var routes = [{
 // routes = routesWithPrefix('/new', routes);
 
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_22__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_22__.createWebHistory)(process.env.MIX_SUBPATH_DOMAIN),
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_22__.createWebHistory)("/"),
   routes: routes,
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {
     return {
@@ -87642,7 +87640,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
 var profile = {
   namespaced: true,
   state: {
@@ -87659,10 +87656,10 @@ var profile = {
         state.role_name = payload.role_name;
         state.role_id = payload.id_role;
         state.kecamatan_id = payload.id_kecamatan;
-        if (payload.id_role == process.env.MIX_ROLE_KONSELOR_ID) {
+        if (payload.id_role == "4") {
           state.name = payload.konselor_name;
           state.id_konselor = payload.id_konselor;
-        } else if (payload.id_role == process.env.MIX_ROLE_OPD_ID) {
+        } else if (payload.id_role == "6") {
           state.name = payload.opd_name;
         } else {
           state.name = payload.name;

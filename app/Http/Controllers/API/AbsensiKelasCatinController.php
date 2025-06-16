@@ -2,34 +2,36 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\AbsensiKelasCatin;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class AbsensiKelasCatinController extends Controller
 {
-    protected $responseCode = 200;
-    protected $responseMessage = 'Success';
-    protected $responseData = null;
-
     /**
-     * Menampilkan semua data absensi kelas catin.
+     * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         try {
-            $query = AbsensiKelasCatin::query();
+            $limit = $request->limit ? intval($request->limit) : 10;
+            $order = $request->order ?: 'DESC';
+            $sortby = $request->sortby ?: 'id';
+
+            $query = AbsensiKelasCatin::withTrashed(); // Include soft-deleted data jika perlu
 
             if ($request->filled('search')) {
-                $query->where('name', 'like', '%' . $request->search . '%');
+                $query->where(DB::raw('lower(name)'), 'like', '%' . strtolower($request->search) . '%');
             }
 
-            $data = $query->paginate(15);
+            $catinList = $query->orderBy($sortby, $order)->paginate($limit);
 
-            $this->responseData = $data;
+            $this->responseCode = 200;
+            $this->responseData = $catinList;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
             $this->responseCode = 500;
@@ -39,14 +41,16 @@ class AbsensiKelasCatinController extends Controller
     }
 
     /**
-     * Menyimpan data baru ke dalam tabel absensi_kelas_catins.
+     * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
+
             $rules = [
                 'name' => 'required|string|max:255',
-                'nik' => 'required|digits:16|unique:absensi_kelas_catins,nik',
+                'nik' => 'required|digits:16|unique:absensi_kelas_catin,nik',
                 'alamat' => 'required|string',
                 'kecamatan_ktp' => 'required|string|max:255',
                 'kelurahan_ktp' => 'required|string|max:255',
@@ -56,10 +60,10 @@ class AbsensiKelasCatinController extends Controller
                 'pendidikan_terakhir' => 'required|string|max:255',
                 'jenis_kelas' => 'required|in:Online,Offline',
                 'alamat_email' => 'nullable|email|max:255',
-                'unggah_foto' => 'nullable|string',
-                'unggah_ktp' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-                'tanda_tangan' => 'nullable|string',
-                'rating_kegiatan' => 'nullable|integer|min:1|max:5',
+                'unggah_foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'unggah_ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'tanda_tangan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'rating_kegiatan' => 'nullable|string',
                 'kritik_saran' => 'nullable|string',
             ];
 
@@ -72,56 +76,60 @@ class AbsensiKelasCatinController extends Controller
                 return response()->json($this->getResponse(), $this->responseCode);
             }
 
-            $validated = $validator->validated();
+            $validated = $request->except(['unggah_foto', 'unggah_ktp', 'tanda_tangan']);
 
-            // Simpan foto diri (Base64)
-            if ($request->has('unggah_foto')) {
-                $fotoBase64 = $request->input('unggah_foto');
-
-                $uploadPath = 'uploads/foto_diri_absensi_kelas_catins/';
-                if (!is_dir(public_path($uploadPath))) mkdir(public_path($uploadPath), 0755, true);
-
-                $filePath = $uploadPath . time() . '.jpg';
-                $base64Data = preg_replace('/^data:image\/\w+;base64,/', '', $fotoBase64);
-                file_put_contents(public_path($filePath), base64_decode($base64Data));
-                $validated['unggah_foto'] = $filePath;
+            // Upload dan kompres foto diri
+            if ($request->hasFile('unggah_foto')) {
+                $foto = $request->file('unggah_foto');
+                $fotoPath = $this->compressAndStoreImage($foto, 'foto_diri_absensi_catin');
+                $validated['unggah_foto'] = $fotoPath;
             }
 
-            // Simpan KTP (File upload)
+            // Upload dan kompres KTP
             if ($request->hasFile('unggah_ktp')) {
-                $ktpPath = $request->file('unggah_ktp')->store('ktp_absensi_kelas_catins', 'public');
+                $ktp = $request->file('unggah_ktp');
+                $ktpPath = $this->compressAndStoreImage($ktp, 'ktp_absensi_catin');
                 $validated['unggah_ktp'] = $ktpPath;
             }
 
-            $absensi = AbsensiKelasCatin::create($validated);
+            // Upload dan kompres tanda tangan
+            if ($request->hasFile('tanda_tangan')) {
+                $ttd = $request->file('tanda_tangan');
+                $ttdPath = $this->compressAndStoreImage($ttd, 'tanda_tangan_absensi_catin');
+                $validated['tanda_tangan'] = $ttdPath;
+            }
 
-            $this->responseData = $absensi;
+            $catin = AbsensiKelasCatin::create($validated);
+
+            DB::commit();
             $this->responseCode = 201;
-            $this->responseMessage = 'Data berhasil ditambahkan';
-
+            $this->responseData = $catin;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
             $this->responseCode = 500;
             $this->responseMessage = $e->getMessage();
+            DB::rollback();
             return response()->json($this->getResponse(), $this->responseCode);
         }
     }
 
     /**
-     * Menampilkan detail satu data absensi kelas catin.
+     * Display the specified resource.
      */
     public function show($id)
     {
         try {
-            $absensi = AbsensiKelasCatin::find($id);
+            $id = intval($id);
+            $catin = AbsensiKelasCatin::withTrashed()->find($id);
 
-            if (!$absensi) {
+            if (!$catin) {
                 $this->responseCode = 404;
                 $this->responseMessage = 'Data tidak ditemukan';
                 return response()->json($this->getResponse(), $this->responseCode);
             }
 
-            $this->responseData = $absensi;
+            $this->responseCode = 200;
+            $this->responseData = $catin;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
             $this->responseCode = 500;
@@ -131,14 +139,17 @@ class AbsensiKelasCatinController extends Controller
     }
 
     /**
-     * Memperbarui data absensi kelas catin berdasarkan ID.
+     * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
         try {
-            $absensi = AbsensiKelasCatin::find($id);
+            DB::beginTransaction();
 
-            if (!$absensi) {
+            $id = intval($id);
+            $catin = AbsensiKelasCatin::withTrashed()->find($id);
+
+            if (!$catin) {
                 $this->responseCode = 404;
                 $this->responseMessage = 'Data tidak ditemukan';
                 return response()->json($this->getResponse(), $this->responseCode);
@@ -146,7 +157,7 @@ class AbsensiKelasCatinController extends Controller
 
             $rules = [
                 'name' => 'sometimes|required|string|max:255',
-                'nik' => "sometimes|required|digits:16|unique:absensi_kelas_catins,nik,$id",
+                'nik' => 'sometimes|required|digits:16|unique:absensi_kelas_catin,nik,'.$id,
                 'alamat' => 'sometimes|required|string',
                 'kecamatan_ktp' => 'sometimes|required|string|max:255',
                 'kelurahan_ktp' => 'sometimes|required|string|max:255',
@@ -156,10 +167,10 @@ class AbsensiKelasCatinController extends Controller
                 'pendidikan_terakhir' => 'sometimes|required|string|max:255',
                 'jenis_kelas' => 'sometimes|required|in:Online,Offline',
                 'alamat_email' => 'nullable|email|max:255',
-                'unggah_foto' => 'nullable|string',
-                'unggah_ktp' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-                'tanda_tangan' => 'nullable|string',
-                'rating_kegiatan' => 'nullable|integer|min:1|max:5',
+                'unggah_foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'unggah_ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'tanda_tangan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'rating_kegiatan' => 'nullable|string',
                 'kritik_saran' => 'nullable|string',
             ];
 
@@ -172,125 +183,158 @@ class AbsensiKelasCatinController extends Controller
                 return response()->json($this->getResponse(), $this->responseCode);
             }
 
-            $validated = $validator->validated();
+            $validated = $request->except(['unggah_foto', 'unggah_ktp', 'tanda_tangan']);
 
-            // Update foto diri (Base64)
-            if ($request->has('unggah_foto')) {
-                $fotoBase64 = $request->input('unggah_foto');
-
-                $uploadPath = 'uploads/foto_diri_absensi_kelas_catins/';
-                if (!is_dir(public_path($uploadPath))) mkdir(public_path($uploadPath), 0755, true);
-
-                $filePath = $uploadPath . time() . '.jpg';
-                $base64Data = preg_replace('/^data:image\/\w+;base64,/', '', $fotoBase64);
-                file_put_contents(public_path($filePath), base64_decode($base64Data));
-                $validated['unggah_foto'] = $filePath;
+            // Update foto diri
+            if ($request->hasFile('unggah_foto')) {
+                if ($catin->unggah_foto) Storage::delete($catin->unggah_foto);
+                $foto = $request->file('unggah_foto');
+                $fotoPath = $this->compressAndStoreImage($foto, 'foto_diri_absensi_catin');
+                $validated['unggah_foto'] = $fotoPath;
             }
 
-            // Update KTP (File upload)
+            // Update KTP
             if ($request->hasFile('unggah_ktp')) {
-                $ktpPath = $request->file('unggah_ktp')->store('ktp_absensi_kelas_catins', 'public');
+                if ($catin->unggah_ktp) Storage::delete($catin->unggah_ktp);
+                $ktp = $request->file('unggah_ktp');
+                $ktpPath = $this->compressAndStoreImage($ktp, 'ktp_absensi_catin');
                 $validated['unggah_ktp'] = $ktpPath;
             }
 
-            $absensi->update($validated);
+            // Update tanda tangan
+            if ($request->hasFile('tanda_tangan')) {
+                if ($catin->tanda_tangan) Storage::delete($catin->tanda_tangan);
+                $ttd = $request->file('tanda_tangan');
+                $ttdPath = $this->compressAndStoreImage($ttd, 'tanda_tangan_absensi_catin');
+                $validated['tanda_tangan'] = $ttdPath;
+            }
 
-            $this->responseData = $absensi;
-            $this->responseMessage = 'Data berhasil diperbarui';
+            $catin->update($validated);
 
+            DB::commit();
+            $this->responseCode = 200;
+            $this->responseData = $catin;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
             $this->responseCode = 500;
             $this->responseMessage = $e->getMessage();
+            DB::rollback();
             return response()->json($this->getResponse(), $this->responseCode);
         }
     }
 
     /**
-     * Menghapus data absensi kelas catin berdasarkan ID.
+     * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
         try {
-            $absensi = AbsensiKelasCatin::find($id);
+            DB::beginTransaction();
 
-            if (!$absensi) {
+            $id = intval($id);
+            $catin = AbsensiKelasCatin::find($id);
+
+            if (!$catin) {
                 $this->responseCode = 404;
                 $this->responseMessage = 'Data tidak ditemukan';
                 return response()->json($this->getResponse(), $this->responseCode);
             }
 
-            $absensi->delete();
+            $catin->delete();
 
-            $this->responseMessage = 'Data berhasil dihapus';
+            DB::commit();
+            $this->responseCode = 200;
+            $this->responseMessage = 'Berhasil menghapus data';
+            $this->responseData = $catin;
+            return response()->json($this->getResponse(), $this->responseCode);
+        } catch (\Exception $e) {
+            $this->responseCode = 500;
+            $this->responseMessage = $e->getMessage();
+            DB::rollback();
+            return response()->json($this->getResponse(), $this->responseCode);
+        }
+    }
+
+    /**
+     * Restore soft deleted record
+     */
+    /* public function restore($id)
+    {
+        try {
+            $id = intval($id);
+            $catin = AbsensiKelasCatin::onlyTrashed()->find($id);
+
+            if (!$catin) {
+                $this->responseCode = 404;
+                $this->responseMessage = 'Data tidak ditemukan atau belum dihapus';
+                return response()->json($this->getResponse(), $this->responseCode);
+            }
+
+            $catin->restore();
+
+            $this->responseCode = 200;
+            $this->responseMessage = 'Data berhasil dipulihkan';
+            $this->responseData = $catin;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
             $this->responseCode = 500;
             $this->responseMessage = $e->getMessage();
             return response()->json($this->getResponse(), $this->responseCode);
         }
-    }
+    } */
 
     /**
-     * Mengubah status is_active (aktif/non-aktif) berdasarkan ID.
+     * Switch status is_active
      */
     public function switchStatus($id)
     {
         try {
-            // Pastikan ID adalah integer
+            DB::beginTransaction();
+
             $id = intval($id);
+            $catin = AbsensiKelasCatin::withTrashed()->find($id);
 
-            // Cari data berdasarkan ID
-            $absensi = AbsensiKelasCatin::find($id);
-
-            // Jika data tidak ditemukan, kembalikan respons 404
-            if (!$absensi) {
+            if (!$catin) {
                 $this->responseCode = 404;
                 $this->responseMessage = 'Data tidak ditemukan';
                 return response()->json($this->getResponse(), $this->responseCode);
             }
 
-            // Mulai transaksi database
-            DB::beginTransaction();
-
-            // Toggle status is_active
-            $absensi->update([
-                'is_active' => !$absensi->is_active
+            $catin->update([
+                'is_active' => !$catin->is_active
             ]);
 
-            // Tentukan pesan berdasarkan status baru
             $this->responseCode = 200;
-            $this->responseMessage = boolval($absensi->is_active) ? 'Data telah diaktifkan' : 'Data telah dinonaktifkan';
-            $this->responseData = $absensi;
-
-            // Commit transaksi
+            $this->responseMessage = boolval($catin->is_active) ? 'Data telah diaktifkan' : 'Data telah dinonaktifkan';
+            $this->responseData = $catin;
             DB::commit();
-
-            // Kembalikan respons JSON
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
-            // Rollback transaksi jika terjadi error
+            $this->responseCode = 500;
+            $this->responseMessage = $e->getMessage();
             DB::rollback();
-
-            // Kembalikan respons error
-            $this->responseCode = 500;
-            $this->responseMessage = $e->getMessage();
             return response()->json($this->getResponse(), $this->responseCode);
         }
     }
 
     /**
-     * Ambil data aktif untuk dropdown.
+     * List active records for select/dropdown
      */
-    public function lists()
+    public function lists(Request $request)
     {
         try {
-            $data = AbsensiKelasCatin::select('id', 'name as nama')
-                ->where('is_active', true)
-                ->orderBy('name', 'ASC')
-                ->get();
+            $limit = $request->limit ? intval($request->limit) : 10;
 
-            $this->responseData = $data;
+            $catin = AbsensiKelasCatin::where('is_active', true);
+
+            if ($request->filled('search')) {
+                $catin->where(DB::raw('lower(name)'), 'like', '%' . strtolower($request->search) . '%');
+            }
+
+            $catin = $catin->take($limit)->orderBy('name', 'ASC')->get();
+
+            $this->responseCode = 200;
+            $this->responseData = $catin;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
             $this->responseCode = 500;
@@ -300,22 +344,37 @@ class AbsensiKelasCatinController extends Controller
     }
 
     /**
-     * Endpoint untuk listsPublic.
+     * Public list without auth maybe
      */
-    public function listsPublic()
+    public function listsPublic(Request $request)
     {
         try {
-            $data = AbsensiKelasCatin::select('id', 'name as nama')
-                ->where('is_active', true)
-                ->orderBy('name', 'ASC')
-                ->get();
+            $catin = AbsensiKelasCatin::where('is_active', true)->orderBy('name', 'ASC')->get();
 
-            $this->responseData = $data;
+            $this->responseCode = 200;
+            $this->responseData = $catin;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
             $this->responseCode = 500;
             $this->responseMessage = $e->getMessage();
             return response()->json($this->getResponse(), $this->responseCode);
         }
+    }
+
+    /**
+     * Fungsi untuk kompresi dan simpan gambar
+     */
+    private function compressAndStoreImage($image, $folder)
+    {
+        $img = Image::make($image->getRealPath());
+        $img->resize(800, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $img->encode('jpg', 75); // Kompresi ke kualitas 75%
+
+        $fileName = time() . '_' . uniqid() . '.jpg';
+        Storage::put("public/{$folder}/{$fileName}", (string)$img->encode());
+
+        return "storage/{$folder}/{$fileName}";
     }
 }

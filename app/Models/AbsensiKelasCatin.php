@@ -12,7 +12,7 @@ class AbsensiKelasCatin extends Model
 {
     use HasFactory, Userstamps, SoftDeletes, SoftCascadeTrait;
 
-    protected $table = 'absensi_kelas_catins';
+    protected $table = 'absensi_kelas_catin';
     protected $softCascade = [];
     protected $casts = [
         'is_active' => 'boolean',
@@ -28,8 +28,4 @@ class AbsensiKelasCatin extends Model
         'created_by', 'updated_by', 'deleted_by',
     ];
 
-    public function tambahKegiatan()
-    {
-        return $this->hasMany(TambahKegiatan::class, 'id_absensi_catin');
-    }
 }

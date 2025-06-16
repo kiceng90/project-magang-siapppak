@@ -3,18 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
 use App\Models\AbsensiKegiatan;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\AbsensiKegiatanExport; // Pastikan export class ini ada
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class AbsensiKegiatanController extends Controller
-{
-    protected $responseCode = 200;
-    protected $responseMessage = 'Success';
-    protected $responseData = null;
+{ 
 
     /**
      * Display a listing of the resource.
@@ -23,17 +20,19 @@ class AbsensiKegiatanController extends Controller
     {
         try {
             $limit = $request->limit ? intval($request->limit) : 10;
-            $order = $request->order ? $request->order : 'DESC';
-            $sortby = $request->sortby ? $request->sortby : 'id';
+            $order = $request->order ?: 'DESC';
+            $sortby = $request->sortby ?: 'id';
 
-            $query = AbsensiKegiatan::with(['kegiatan']);
+            $query = AbsensiKegiatan::withTrashed(); // Include soft-deleted data jika perlu
+
             if ($request->filled('search')) {
                 $query->where(DB::raw('lower(name)'), 'like', '%' . strtolower($request->search) . '%');
             }
 
-            $data = $query->orderBy($sortby, $order)->paginate($limit);
+            $absensiList = $query->orderBy($sortby, $order)->paginate($limit);
 
-            $this->responseData = $data;
+            $this->responseCode = 200;
+            $this->responseData = $absensiList;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
             $this->responseCode = 500;
@@ -51,30 +50,30 @@ class AbsensiKegiatanController extends Controller
             DB::beginTransaction();
 
             $rules = [
-                'id_kegiatan' => 'required|exists:tambah_kegiatans,id',
                 'name' => 'required|string|max:255',
-                'nik' => 'required|digits:16|unique:absensi_kegiatans,nik',
-                'alamat_email' => 'nullable|email',
+                'nik' => 'required|digits:16|unique:absensi_kegiatan,nik',
+                'alamat_email' => 'nullable|email|max:255',
                 'alamat' => 'required|string',
-                'kecamatan_ktp' => 'required|string',
-                'kelurahan_ktp' => 'required|string',
+                'kecamatan_ktp' => 'required|string|max:255',
+                'kelurahan_ktp' => 'required|string|max:255',
                 'tanggal_lahir' => 'required|date',
-                'nomor_hp' => 'required|string',
+                'nomor_hp' => 'required|string|max:15',
                 'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-                'pendidikan_terakhir' => 'required|string',
-                'instansi' => 'required|string',
+                'pendidikan_terakhir' => 'required|string|max:255',
+                'jenis_kelas' => 'required|in:Online,Offline',
+                'instansi' => 'required|string|max:255',
                 'alamat_domisili' => 'required|string',
-                'kecamatan_domisili' => 'required|string',
-                'kelurahan_domisili' => 'required|string',
-                'unggah_ktp' => 'nullable|string',
-                'unggah_foto' => 'nullable|string',
-                'tanda_tangan' => 'nullable|string',
+                'kecamatan_domisili' => 'required|string|max:255',
+                'kelurahan_domisili' => 'required|string|max:255',
+                'unggah_foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'unggah_ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'tanda_tangan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'rating_kegiatan' => 'nullable|integer|min:1|max:5',
                 'kritik_saran' => 'nullable|string',
-                'is_active' => 'boolean'
             ];
 
             $validator = Validator::make($request->all(), $rules);
+
             if ($validator->fails()) {
                 $this->responseCode = 422;
                 $this->responseMessage = $validator->errors()->first();
@@ -82,17 +81,39 @@ class AbsensiKegiatanController extends Controller
                 return response()->json($this->getResponse(), $this->responseCode);
             }
 
-            $absensi = AbsensiKegiatan::create($request->all());
+            $validated = $request->except(['unggah_foto', 'unggah_ktp', 'tanda_tangan']);
+
+            // Upload dan kompres foto diri
+            if ($request->hasFile('unggah_foto')) {
+                $foto = $request->file('unggah_foto');
+                $fotoPath = $this->compressAndStoreImage($foto, 'foto_diri_absensi_kegiatans');
+                $validated['unggah_foto'] = $fotoPath;
+            }
+
+            // Upload dan kompres KTP
+            if ($request->hasFile('unggah_ktp')) {
+                $ktp = $request->file('unggah_ktp');
+                $ktpPath = $this->compressAndStoreImage($ktp, 'ktp_absensi_kegiatans');
+                $validated['unggah_ktp'] = $ktpPath;
+            }
+
+            // Upload dan kompres tanda tangan
+            if ($request->hasFile('tanda_tangan')) {
+                $ttd = $request->file('tanda_tangan');
+                $ttdPath = $this->compressAndStoreImage($ttd, 'tanda_tangan_absensi_kegiatans');
+                $validated['tanda_tangan'] = $ttdPath;
+            }
+
+            $absensi = AbsensiKegiatan::create($validated);
 
             DB::commit();
             $this->responseCode = 201;
             $this->responseData = $absensi;
-            $this->responseMessage = 'Data berhasil ditambahkan';
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
-            DB::rollback();
             $this->responseCode = 500;
             $this->responseMessage = $e->getMessage();
+            DB::rollback();
             return response()->json($this->getResponse(), $this->responseCode);
         }
     }
@@ -104,13 +125,15 @@ class AbsensiKegiatanController extends Controller
     {
         try {
             $id = intval($id);
-            $absensi = AbsensiKegiatan::with(['kegiatan'])->find($id);
+            $absensi = AbsensiKegiatan::withTrashed()->find($id);
+
             if (!$absensi) {
                 $this->responseCode = 404;
                 $this->responseMessage = 'Data tidak ditemukan';
                 return response()->json($this->getResponse(), $this->responseCode);
             }
 
+            $this->responseCode = 200;
             $this->responseData = $absensi;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
@@ -129,7 +152,8 @@ class AbsensiKegiatanController extends Controller
             DB::beginTransaction();
 
             $id = intval($id);
-            $absensi = AbsensiKegiatan::find($id);
+            $absensi = AbsensiKegiatan::withTrashed()->find($id);
+
             if (!$absensi) {
                 $this->responseCode = 404;
                 $this->responseMessage = 'Data tidak ditemukan';
@@ -138,23 +162,29 @@ class AbsensiKegiatanController extends Controller
 
             $rules = [
                 'name' => 'sometimes|required|string|max:255',
-                'nik' => "sometimes|required|digits:16|unique:absensi_kegiatans,nik,$id",
-                'alamat_email' => 'nullable|email',
+                'nik' => 'sometimes|required|digits:16|unique:absensi_kegiatan,nik,'.$id,
+                'alamat_email' => 'nullable|email|max:255',
                 'alamat' => 'sometimes|required|string',
-                'kecamatan_ktp' => 'sometimes|required|string',
-                'kelurahan_ktp' => 'sometimes|required|string',
+                'kecamatan_ktp' => 'sometimes|required|string|max:255',
+                'kelurahan_ktp' => 'sometimes|required|string|max:255',
                 'tanggal_lahir' => 'sometimes|required|date',
-                'nomor_hp' => 'sometimes|required|string',
+                'nomor_hp' => 'sometimes|required|string|max:15',
                 'jenis_kelamin' => 'sometimes|required|in:Laki-laki,Perempuan',
-                'pendidikan_terakhir' => 'sometimes|required|string',
-                'instansi' => 'sometimes|required|string',
+                'pendidikan_terakhir' => 'sometimes|required|string|max:255',
+                'jenis_kelas' => 'sometimes|required|in:Online,Offline',
+                'instansi' => 'sometimes|required|string|max:255',
                 'alamat_domisili' => 'sometimes|required|string',
-                'kecamatan_domisili' => 'sometimes|required|string',
-                'kelurahan_domisili' => 'sometimes|required|string',
-                'is_active' => 'boolean'
+                'kecamatan_domisili' => 'sometimes|required|string|max:255',
+                'kelurahan_domisili' => 'sometimes|required|string|max:255',
+                'unggah_foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'unggah_ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'tanda_tangan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'rating_kegiatan' => 'nullable|integer|min:1|max:5',
+                'kritik_saran' => 'nullable|string',
             ];
 
             $validator = Validator::make($request->all(), $rules);
+
             if ($validator->fails()) {
                 $this->responseCode = 422;
                 $this->responseMessage = $validator->errors()->first();
@@ -162,17 +192,42 @@ class AbsensiKegiatanController extends Controller
                 return response()->json($this->getResponse(), $this->responseCode);
             }
 
-            $absensi->update($request->all());
+            $validated = $request->except(['unggah_foto', 'unggah_ktp', 'tanda_tangan']);
+
+            // Update foto diri
+            if ($request->hasFile('unggah_foto')) {
+                if ($absensi->unggah_foto) Storage::delete($absensi->unggah_foto);
+                $foto = $request->file('unggah_foto');
+                $fotoPath = $this->compressAndStoreImage($foto, 'foto_diri_absensi_kegiatans');
+                $validated['unggah_foto'] = $fotoPath;
+            }
+
+            // Update KTP
+            if ($request->hasFile('unggah_ktp')) {
+                if ($absensi->unggah_ktp) Storage::delete($absensi->unggah_ktp);
+                $ktp = $request->file('unggah_ktp');
+                $ktpPath = $this->compressAndStoreImage($ktp, 'ktp_absensi_kegiatans');
+                $validated['unggah_ktp'] = $ktpPath;
+            }
+
+            // Update tanda tangan
+            if ($request->hasFile('tanda_tangan')) {
+                if ($absensi->tanda_tangan) Storage::delete($absensi->tanda_tangan);
+                $ttd = $request->file('tanda_tangan');
+                $ttdPath = $this->compressAndStoreImage($ttd, 'tanda_tangan_absensi_kegiatans');
+                $validated['tanda_tangan'] = $ttdPath;
+            }
+
+            $absensi->update($validated);
 
             DB::commit();
             $this->responseCode = 200;
             $this->responseData = $absensi;
-            $this->responseMessage = 'Berhasil perbarui absensi kegiatan';
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
-            DB::rollback();
             $this->responseCode = 500;
             $this->responseMessage = $e->getMessage();
+            DB::rollback();
             return response()->json($this->getResponse(), $this->responseCode);
         }
     }
@@ -187,6 +242,7 @@ class AbsensiKegiatanController extends Controller
 
             $id = intval($id);
             $absensi = AbsensiKegiatan::find($id);
+
             if (!$absensi) {
                 $this->responseCode = 404;
                 $this->responseMessage = 'Data tidak ditemukan';
@@ -201,60 +257,90 @@ class AbsensiKegiatanController extends Controller
             $this->responseData = $absensi;
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
-            DB::rollback();
             $this->responseCode = 500;
             $this->responseMessage = $e->getMessage();
+            DB::rollback();
             return response()->json($this->getResponse(), $this->responseCode);
         }
     }
 
     /**
-     * Switch status aktif/non-aktif.
+     * Restore soft deleted record
+     */
+    /* public function restore($id)
+    {
+        try {
+            $id = intval($id);
+            $absensi = AbsensiKegiatan::onlyTrashed()->find($id);
+
+            if (!$absensi) {
+                $this->responseCode = 404;
+                $this->responseMessage = 'Data tidak ditemukan atau belum dihapus';
+                return response()->json($this->getResponse(), $this->responseCode);
+            }
+
+            $absensi->restore();
+
+            $this->responseCode = 200;
+            $this->responseMessage = 'Data berhasil dipulihkan';
+            $this->responseData = $absensi;
+            return response()->json($this->getResponse(), $this->responseCode);
+        } catch (\Exception $e) {
+            $this->responseCode = 500;
+            $this->responseMessage = $e->getMessage();
+            return response()->json($this->getResponse(), $this->responseCode);
+        }
+    } */
+
+    /**
+     * Switch status is_active
      */
     public function switchStatus($id)
     {
         try {
+            DB::beginTransaction();
+
             $id = intval($id);
-            $absensi = AbsensiKegiatan::find($id);
+            $absensi = AbsensiKegiatan::withTrashed()->find($id);
+
             if (!$absensi) {
                 $this->responseCode = 404;
                 $this->responseMessage = 'Data tidak ditemukan';
                 return response()->json($this->getResponse(), $this->responseCode);
             }
 
-            DB::beginTransaction();
-
             $absensi->update([
                 'is_active' => !$absensi->is_active
             ]);
 
             $this->responseCode = 200;
-            $this->responseMessage = boolval($absensi->is_active) ? 'Absensi telah diaktifkan' : 'Absensi telah dinonaktifkan';
+            $this->responseMessage = boolval($absensi->is_active) ? 'Data telah diaktifkan' : 'Data telah dinonaktifkan';
             $this->responseData = $absensi;
-
             DB::commit();
             return response()->json($this->getResponse(), $this->responseCode);
         } catch (\Exception $e) {
-            DB::rollback();
             $this->responseCode = 500;
             $this->responseMessage = $e->getMessage();
+            DB::rollback();
             return response()->json($this->getResponse(), $this->responseCode);
         }
     }
 
     /**
-     * Get active data for dropdowns with limit.
+     * List active records for select/dropdown
      */
     public function lists(Request $request)
     {
         try {
             $limit = $request->limit ? intval($request->limit) : 10;
 
-            $absensi = AbsensiKegiatan::select('*');
+            $absensi = AbsensiKegiatan::where('is_active', true);
+
             if ($request->filled('search')) {
                 $absensi->where(DB::raw('lower(name)'), 'like', '%' . strtolower($request->search) . '%');
             }
-            $absensi = $absensi->where('is_active', true)->take($limit)->orderBy('name', 'ASC')->get();
+
+            $absensi = $absensi->take($limit)->orderBy('name', 'ASC')->get();
 
             $this->responseCode = 200;
             $this->responseData = $absensi;
@@ -267,13 +353,12 @@ class AbsensiKegiatanController extends Controller
     }
 
     /**
-     * Get all active data for public use.
+     * Public list without auth maybe
      */
     public function listsPublic(Request $request)
     {
         try {
-            $absensi = AbsensiKegiatan::select('*');
-            $absensi = $absensi->where('is_active', true)->orderBy('name', 'ASC')->get();
+            $absensi = AbsensiKegiatan::where('is_active', true)->orderBy('name', 'ASC')->get();
 
             $this->responseCode = 200;
             $this->responseData = $absensi;
@@ -285,23 +370,21 @@ class AbsensiKegiatanController extends Controller
         }
     }
 
-    /**
-     * Export data to Excel.
-     */
-    /* public function export(Request $request)
-    {
-        return Excel::download(new AbsensiKegiatanExport, 'Absensi_Kegiatan.xlsx');
-    } */
 
     /**
-     * Helper method to generate standardized response.
+     * Fungsi untuk kompresi dan simpan gambar
      */
-    /* protected function getResponse()
+    private function compressAndStoreImage($image, $folder)
     {
-        return [
-            'code' => $this->responseCode,
-            'message' => $this->responseMessage,
-            'data' => $this->responseData,
-        ];
-    } */
+        $img = Image::make($image->getRealPath());
+        $img->resize(800, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $img->encode('jpg', 75); // Kompresi ke kualitas 75%
+
+        $fileName = time() . '_' . uniqid() . '.jpg';
+        Storage::put("public/{$folder}/{$fileName}", (string)$img->encode());
+
+        return "storage/{$folder}/{$fileName}";
+    }
 }

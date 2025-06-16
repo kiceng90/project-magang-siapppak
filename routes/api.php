@@ -810,10 +810,16 @@ Route::prefix('master-public')->group(function () {
     Route::get('m-jenis-kegiatan/{id}', [API\MJenisKegiatanController::class, 'show']);
     Route::get('m-bentuk-kegiatan', [API\MBentukKegiatanController::class, 'listsPublic']);
     Route::get('m-bentuk-kegiatan/{id}', [API\MBentukKegiatanController::class, 'show']);
-    
-    // Route::get('kegiatan-puspaga', [API\MKegiatanPuspagaController::class, 'index']);
-    // Route::get('kegiatan-puspaga/{id}', [API\MKegiatanPuspagaController::class, 'show']);
+    Route::get('kegiatan-puspaga', [API\MKegiatanPuspagaController::class, 'listsPublic']);
+    Route::get('kegiatan-puspaga/{id}', [API\MKegiatanPuspagaController::class, 'show']);
+    Route::get('absensi-kelas-catin', [API\AbsensiKelasCatinController::class, 'listsPublic']);
+    Route::get('absensi-kelas-catin/{id}', [API\AbsensiKelasCatinController::class, 'show']);
+    Route::get('absensi-kegiatan', [API\AbsensiKegiatanController::class, 'listsPublic']);
+    Route::get('absensi-kegiatan/{id}', [API\AbsensiKegiatanController::class, 'show']);
 });
 
 
 Route::apiResource('kegiatan-puspaga', API\MKegiatanPuspagaController::class);
+Route::apiResource('absensi-kegiatan', API\AbsensiKegiatanController::class);
+Route::apiResource('absensi-kelas-catin', API\AbsensiKelasCatinController::class);
+
