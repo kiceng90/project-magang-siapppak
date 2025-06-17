@@ -764,6 +764,12 @@ Route::prefix('public')->group(function () {
     Route::get('artikelpublic', [API\ArtikelController::class, 'indexPublic']);
     Route::get('artikel/{id}', [API\ArtikelController::class, 'show']);
     Route::get('recentartikel', [API\ArtikelController::class, 'recent']);
+
+    Route::get('absensi-kelas-catin', [API\AbsensiKelasCatinController::class, 'listsPublic']);
+    Route::get('absensi-kelas-catin/{id}', [API\AbsensiKelasCatinController::class, 'show']);
+    Route::get('absensi-kegiatan', [API\AbsensiKegiatanController::class, 'listsPublic']);
+    Route::get('absensi-kegiatan/{id}', [API\AbsensiKegiatanController::class, 'show']);
+
 });
 
 Route::prefix('master-public')->group(function () {
