@@ -16,24 +16,28 @@ class CreateAbsensiKegiatanTable extends Migration
         Schema::create('absensi_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->char('nik', 16)->unique(); // NIK 16 digit
-            $table->string('alamat_email')->nullable();
-            $table->text('alamat');
+            $table->char('nik', 16)->unique(); 
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
+            $table->enum('status', ['Anak (<18)', 'Dewasa (>18)']);
+            $table->text('alamat_ktp');
             $table->string('kecamatan_ktp');
             $table->string('kelurahan_ktp');
-            $table->date('tanggal_lahir');
-            $table->string('nomor_hp');
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
-            $table->string('pendidikan_terakhir');
-            $table->enum('jenis_kelas', ['Online', 'Offline']);
-            $table->string('instansi');
             $table->string('alamat_domisili');
             $table->string('kecamatan_domisili');
             $table->string('kelurahan_domisili');
-            $table->text('unggah_ktp')->nullable(); // Base64
-            $table->text('unggah_foto')->nullable(); // Base64 selfie
-            $table->text('tanda_tangan')->nullable(); // Base64 signature
-            $table->integer('rating_kegiatan')->nullable(); // Rating 1-5
+            $table->date('tanggal_lahir');
+            $table->string('nomor_hp');
+            $table->string('pendidikan_terakhir');
+            $table->enum('metode', ['Online', 'Offline']);
+            $table->string('anda_adalah')-jenis>nullable();
+            $table->string('instansi')->nullable();
+            $table->string('alamat_instansi')->nullable();
+            $table->string('kecamatan_instansi')->nullable();
+            $table->string('kelurahan_instansi')->nullable();
+            $table->text('unggah_ktp')->nullable(); 
+            $table->text('unggah_foto')->nullable(); 
+            $table->text('tanda_tangan')->nullable(); 
+            $table->tinyInteger('rating_kegiatan')->nullable();
             $table->text('kritik_saran')->nullable();
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by')->nullable();

@@ -24,7 +24,7 @@ class CreateAbsensiKelasCatinTable extends Migration
             $table->string('nomor_hp');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('pendidikan_terakhir');
-            $table->enum('jenis_kelas', ['Online', 'Offline']);
+            $table->enum('metode', ['Online', 'Offline']);
             $table->string('alamat_email')->nullable();
             $table->string('unggah_ktp')->nullable(); // Base64 atau path file
             $table->string('unggah_foto')->nullable(); // Base64 atau path file
