@@ -32,10 +32,6 @@ class DatabaseSeeder extends Seeder
             MKategoriMitraSeeder::class,
             KuesionerLaporanMonevSeeder::class,
             MJasaPelayananSeeder::class,
-            MProgramKegiatanSeeder::class,
-            MJenisKegiatanSeeder::class,
-            MBentukKegiatanSeeder::class,
-            MKegiatanPuspagaSeeder::class,
         ]);
     }
 }

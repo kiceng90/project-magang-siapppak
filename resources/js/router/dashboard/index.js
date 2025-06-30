@@ -81,12 +81,10 @@ import ElearningLatihanSoal from "@/views/dashboard/elearning/admin/LatihanSoal.
 import ElearningDetailMateri from "@/views/dashboard/elearning/admin/DetailMateri.vue";
 import ElearningDetailLatihanSoal from "@/views/dashboard/elearning/admin/DetailLatihanSoal.vue";
 
-<<<<<<< Updated upstream
 import RumahPerubahan from "@/views/dashboard/rumah-perubahan/Index.vue";
 import RumahPerubahanMateri from "@/views/dashboard/rumah-perubahan/Materi.vue";
 import RumahPerubahanLatihanSoal from "@/views/dashboard/rumah-perubahan/LatihanSoal.vue";
 import RumahPerubahanHasilLatihanSoal from "@/views/dashboard/rumah-perubahan/HasilLatihanSoal.vue";
-=======
 import KlienPuspaga from "@/views/dashboard/buku-tamu/Klien.vue";
 import LaporanDatabasePuspaga from "@/views/dashboard/laporan-buku-tamu/database-puspaga/Index.vue";
 import LaporanRekapPuspaga from "@/views/dashboard/laporan-buku-tamu/rekap-puspaga/Index.vue";
@@ -97,7 +95,6 @@ import BukuTamuCetak from "@/views/dashboard/buku-tamu/PreviewCetak.vue";
 import DetailBukuTamu from "@/views/dashboard/buku-tamu/Detail.vue";
 import BukuTamuDashboard from "@/views/dashboard/buku-tamu/Index.vue";
 import BukuTamuEdit from "@/views/dashboard/buku-tamu/Edit.vue";
->>>>>>> Stashed changes
 
 import RiwayatKonseling from "@/views/dashboard/riwayat-konseling/Index.vue";
 import BookingJadwalKonseling from "@/views/dashboard/booking-jadwal-konseling/Index.vue";
@@ -134,11 +131,6 @@ import Konselor from "@/views/dashboard/konselor/Index.vue";
 import Mahasiswa from "@/views/dashboard/mahasiswa/Index.vue";
 
 import Kie from "@/views/dashboard/kie/Index.vue";
-// import StandarisasiPuspaga from "@/views/dashboard/standarisasi-puspaga/Index.vue";
-// import MasterStandarisasiPersyaratan from "@/views/dashboard/standarisasi-puspaga/master/persyaratan/Index.vue";
-// import MasterStandarisasiIndikator from "@/views/dashboard/standarisasi-puspaga/master/indikator/Index.vue";
-// import MasterStandarisasiPertanyaan from "@/views/dashboard/standarisasi-puspaga/master/pertanyaan/Index.vue";
-// import DetailStandarisasiPuspaga from "@/views/dashboard/standarisasi-puspaga/Detail.vue";
 import Artikel from "@/views/dashboard/artikel/Index.vue";
 import KegiatanMahasiswa from "@/views/dashboard/kegiatan-mahasiswa/Index.vue";
 import KegiatanFasilitator from "@/views/dashboard/kegiatan-fasilitator/Index.vue";
@@ -866,72 +858,6 @@ var routes = [
                 ],
             },
         },
-        // {
-        //     path: "/standarisasi-puspaga",
-        //     name: "standarisasi-puspaga",
-        //     component: StandarisasiPuspaga,
-        //     meta: {
-        //         auth: true,
-        //         specificRole: [
-        //             process.env.MIX_ROLE_ADMIN_ID,
-        //             process.env.MIX_ROLE_KONSELOR_ID,
-        //             process.env.MIX_ROLE_SUBKORD_ID, 
-        //             process.env.MIX_ROLE_KABID_ID, 
-        //             process.env.MIX_ROLE_KECAMATAN_ID
-
-        //         ],
-        //     },
-        // },
-        // {
-        //     path: "/standarisasi-persyaratan",
-        //     name: "m-standarisasi-persyaratan",
-        //     component: MasterStandarisasiPersyaratan,
-        //     meta: {
-        //         auth: true,
-        //         specificRole: [
-        //             process.env.MIX_ROLE_ADMIN_ID,
-        //         ],
-        //     },
-        // },
-        // {
-        //     path: "/standarisasi-indikator",
-        //     name: "m-standarisasi-indikator",
-        //     component: MasterStandarisasiIndikator,
-        //     meta: {
-        //         auth: true,
-        //         specificRole: [
-        //             process.env.MIX_ROLE_ADMIN_ID,
-        //         ],
-        //     },
-        // },
-        // {
-        //     path: "/standarisasi-pertanyaan",
-        //     name: "m-standarisasi-pertanyaan",
-        //     component: MasterStandarisasiPertanyaan,
-        //     meta: {
-        //         auth: true,
-        //         specificRole: [
-        //             process.env.MIX_ROLE_ADMIN_ID,
-        //         ],
-        //     },
-        // },
-        // {
-        //     path: "/standarisasi-puspaga/:id",
-        //     name: "standarisasi-puspaga-detail",
-        //     component: DetailStandarisasiPuspaga,
-        //     meta: {
-        //         auth: true,
-        //         specificRole: [
-        //             process.env.MIX_ROLE_ADMIN_ID,
-        //             process.env.MIX_ROLE_KONSELOR_ID,
-        //             process.env.MIX_ROLE_SUBKORD_ID, 
-        //             process.env.MIX_ROLE_KABID_ID, 
-        //             process.env.MIX_ROLE_KECAMATAN_ID
-
-        //         ],
-        //     },
-        // },
-
         {
             path: "/buku-tamu/:id/cetak",
             name: "buku-tamu-cetak",

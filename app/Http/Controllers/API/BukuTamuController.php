@@ -418,7 +418,6 @@ class BukuTamuController extends Controller
         }
     }
 
-
     public function rekapTahunan(Request $request)
     {
         return Excel::download(new RekapTahunanBukuTamuExport($request->id_layanan, $request->tahun_awal, $request->tahun_akhir), 'rekap_tahunan_buku_tamu.xlsx');

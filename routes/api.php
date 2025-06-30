@@ -169,38 +169,6 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     });
     Route::apiResource('m-agama', API\MAgamaController::class);
 
-    // Program Kegiatan
-    Route::prefix('m-program-kegiatan')->group(function () {
-        Route::put('{id}/switch-status', [API\MProgramKegiatanController::class, 'switchStatus']);
-        Route::get('lists', [API\MProgramKegiatanController::class, 'lists']);
-        Route::get('export', [API\MProgramKegiatanController::class, 'export']);
-    });
-    Route::apiResource('m-program-kegiatan', API\MProgramKegiatanController::class);
-
-    // Jenis Kegiatan
-    Route::prefix('m-jenis-kegiatan')->group(function () {
-        Route::put('{id}/switch-status', [API\MJenisKegiatanController::class, 'switchStatus']);
-        Route::get('lists', [API\MJenisKegiatanController::class, 'lists']);
-        Route::get('export', [API\MJenisKegiatanController::class, 'export']);
-    });
-    Route::apiResource('m-jenis-kegiatan', API\MJenisKegiatanController::class);
-
-    // Bentuk Kegiatan
-    Route::prefix('m-bentuk-kegiatan')->group(function () {
-        Route::put('{id}/switch-status', [API\MBentukKegiatanController::class, 'switchStatus']);
-        Route::get('lists', [API\MBentukKegiatanController::class, 'lists']);
-        Route::get('export', [API\MBentukKegiatanController::class, 'export']);
-    });
-    Route::apiResource('m-bentuk-kegiatan', API\MBentukKegiatanController::class);
-
-    // Kegiatan Puspaga
-    Route::prefix('kegiatan-puspaga')->group(function () {
-        Route::put('{id}/switch-status', [API\MBentukKegiatanController::class, 'switchStatus']);
-        Route::get('lists', [API\MBentukKegiatanController::class, 'lists']);
-        Route::get('export', [API\MBentukKegiatanController::class, 'export']);
-    });
-    Route::apiResource('kegiatan-puspaga', API\MBentukKegiatanController::class);
-
     Route::prefix('m-pekerjaan')->group(function () {
         Route::put('{id}/switch-status', [API\MPekerjaanController::class, 'switchStatus']);
         Route::get('lists', [API\MPekerjaanController::class, 'lists']);
@@ -722,8 +690,6 @@ Route::group(['middleware' => ['jwt.verify']], function () {
 
         Route::post('admin-pengaduan-integrate', [API\KonselingController::class, 'integratePengaduan']);
     });
-
-
 });
 
 
@@ -764,12 +730,6 @@ Route::prefix('public')->group(function () {
     Route::get('artikelpublic', [API\ArtikelController::class, 'indexPublic']);
     Route::get('artikel/{id}', [API\ArtikelController::class, 'show']);
     Route::get('recentartikel', [API\ArtikelController::class, 'recent']);
-
-    Route::get('absensi-kelas-catin', [API\AbsensiKelasCatinController::class, 'listsPublic']);
-    Route::get('absensi-kelas-catin/{id}', [API\AbsensiKelasCatinController::class, 'show']);
-    Route::get('absensi-kegiatan', [API\AbsensiKegiatanController::class, 'listsPublic']);
-    Route::get('absensi-kegiatan/{id}', [API\AbsensiKegiatanController::class, 'show']);
-
 });
 
 Route::prefix('master-public')->group(function () {
@@ -810,22 +770,4 @@ Route::prefix('master-public')->group(function () {
     Route::get('m-agama/{id}', [API\MAgamaController::class, 'show']);
     Route::get('m-jabatan-dalam-instansi', [API\MJabatanDalamInstansiController::class, 'indexPublic']);
     Route::get('m-jabatan-dalam-instansi/{id}', [API\MJabatanDalamInstansiController::class, 'show']);
-    Route::get('m-program-kegiatan', [API\MProgramKegiatanController::class, 'listsPublic']);
-    Route::get('m-program-kegiatan/{id}', [API\MProgramKegiatanController::class, 'show']);
-    Route::get('m-jenis-kegiatan', [API\MJenisKegiatanController::class, 'listsPublic']);
-    Route::get('m-jenis-kegiatan/{id}', [API\MJenisKegiatanController::class, 'show']);
-    Route::get('m-bentuk-kegiatan', [API\MBentukKegiatanController::class, 'listsPublic']);
-    Route::get('m-bentuk-kegiatan/{id}', [API\MBentukKegiatanController::class, 'show']);
-    Route::get('kegiatan-puspaga', [API\MKegiatanPuspagaController::class, 'listsPublic']);
-    Route::get('kegiatan-puspaga/{id}', [API\MKegiatanPuspagaController::class, 'show']);
-    Route::get('absensi-kelas-catin', [API\AbsensiKelasCatinController::class, 'listsPublic']);
-    Route::get('absensi-kelas-catin/{id}', [API\AbsensiKelasCatinController::class, 'show']);
-    Route::get('absensi-kegiatan', [API\AbsensiKegiatanController::class, 'listsPublic']);
-    Route::get('absensi-kegiatan/{id}', [API\AbsensiKegiatanController::class, 'show']);
 });
-
-
-Route::apiResource('kegiatan-puspaga', API\MKegiatanPuspagaController::class);
-Route::apiResource('absensi-kegiatan', API\AbsensiKegiatanController::class);
-Route::apiResource('absensi-kelas-catin', API\AbsensiKelasCatinController::class);
-

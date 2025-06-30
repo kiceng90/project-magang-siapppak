@@ -209,6 +209,30 @@
                                                                 <div
                                                                     class="d-flex flex-column"
                                                                 >
+                                                                    <span
+                                                                        class="fw-bolder"
+                                                                        style="
+                                                                            font-size: 1rem;
+                                                                            text-transform: capitalize;
+                                                                        "
+                                                                    >
+                                                                        {{
+                                                                            formatTanggalIndonesia(
+                                                                                context.created_at
+                                                                            )
+                                                                        }}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="text-left">
+                                                            <div
+                                                                class="d-flex align-items-center gap-4"
+                                                            >
+                                                                <div
+                                                                    class="d-flex flex-column"
+                                                                >
                                                                     <p
                                                                         class="mb-0"
                                                                     >
@@ -502,6 +526,11 @@ export default {
                             style: "text-align: center",
                         },
                         {
+                            text: "TANGGAL",
+                            sort_column: true,
+                            style: "text-align: left",
+                        },
+                        {
                             text: "PENGUNJUNG",
                             sort_column: true,
                             style: "text-align: left",
@@ -551,6 +580,31 @@ export default {
         this.getDataTable();
     },
     methods: {
+        formatTanggalIndonesia(tanggal) {
+            if (!tanggal) return "-";
+
+            const bulan = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mei",
+                "Juni",
+                "Juli",
+                "Agustus",
+                "September",
+                "Oktober",
+                "November",
+                "Desember",
+            ];
+
+            const dateObj = new Date(tanggal);
+            const tgl = dateObj.getDate();
+            const bln = bulan[dateObj.getMonth()];
+            const thn = dateObj.getFullYear();
+
+            return `${tgl} ${bln} ${thn}`;
+        },
         exportData() {
             console.log("Export data dipanggil!");
             this.$ewpLoadingShow();
@@ -584,25 +638,6 @@ export default {
         onClickFilterStatus(status) {
             this.filter.statusBukuTamu = status; // Update status filter
             this.getDataTable(); // Panggil ulang getDataTable untuk memuat data sesuai filter
-        },
-        async fetchBukuTamuDetails() {
-            this.pageStatus = "loading";
-            try {
-                const response = await Api().get(
-                    `/buku-tamu/${this.$route.params.id}`
-                );
-
-                if (response.data.status === "success") {
-                    this.bukuTamu = response.data.data;
-                    this.pageStatus = "standby";
-                } else {
-                    console.warn("API returned a non-success status");
-                    this.pageStatus = "error";
-                }
-            } catch (error) {
-                console.error("Failed to fetch buku tamu details:", error);
-                this.pageStatus = "error";
-            }
         },
         onDateChange(dates) {
             this.filter.startDate = dates && dates.length > 0 ? dates[0] : null;

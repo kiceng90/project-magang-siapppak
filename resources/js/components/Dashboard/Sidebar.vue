@@ -355,18 +355,9 @@
                             <span class="menu-title">Riwayat Konseling</span>
                         </router-link>
                     </div>
-<<<<<<< Updated upstream
-                    <!-- <div 
-                        class="menu-item menu-accordion" 
-                        v-if="isSpecificHaveAccessMenu([ROLE_ADMIN_ID, ROLE_KONSELOR_ID, ROLE_SUBKORD_ID, ROLE_KABID_ID, ROLE_KECAMATAN_ID])" 
-                        :class="isCurrentUrl(['standarisasi-puspaga', 'm-standarisasi-persyaratan','m-standarisasi-indikator','m-standarisasi-pertanyaan']) ? 'show' : ''" 
-                        data-kt-menu-trigger="click"
-                    >
-                        <a class="menu-link" href="javascript:void(0);">
-=======
+
                     <div class="menu-item" v-if="isSpecificHaveAccessMenu([ROLE_KONSELOR_ID, ROLE_ADMIN_ID])">
                         <router-link :to="{name: 'buku-tamu-dashboard'}" class="menu-link py-3" :class="isCurrentUrl(['buku-tamu-dashboard']) ? 'active' : ''">
->>>>>>> Stashed changes
                             <span class="menu-icon">
                                 <span class="svg-icon svg-icon-2 icon-left">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -375,72 +366,9 @@
                                     </svg>
                                 </span>
                             </span>
-<<<<<<< Updated upstream
-                            <span class="menu-title">Standarisasi Puspaga</span>
-                            <span class="menu-arrow"></span>
-                        </a> -->
-
-                        <!-- Submenu Standarisasi Puspaga -->
-                        <!-- <div class="menu-sub menu-sub-accordion"> -->
-                            <!-- Master Standarisasi 2 (Only for Admin) -->
-                            <!-- <div 
-                                class="menu-item menu-accordion" 
-                                v-if="isSpecificHaveAccessMenu([ROLE_ADMIN_ID])" 
-                                :class="isCurrentUrl(['m-standarisasi-persyaratan','m-standarisasi-indikator','m-standarisasi-pertanyaan']) ? 'show' : ''" 
-                                data-kt-menu-trigger="click"
-                            >
-                                <a class="menu-link" href="javascript:void(0);" style="padding-left: calc(.75rem + 25px)">
-                                    <MenuBullet />
-                                    <span class="menu-title">Master Standarisasi</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-
-                                <div class="menu-sub menu-sub-accordion">
-                                    <div class="menu-item">
-                                        <router-link 
-                                            :to="{ name: 'm-standarisasi-persyaratan' }" 
-                                            class="menu-link py-3" 
-                                            :class="isCurrentUrl(['m-standarisasi-persyaratan']) ? 'active' : ''"
-                                        >
-                                            <MenuBullet />
-                                            <span class="menu-title">Database Persyaratan</span>
-                                        </router-link>
-
-                                        <router-link 
-                                            :to="{ name: 'm-standarisasi-indikator' }" 
-                                            class="menu-link py-3" 
-                                            :class="isCurrentUrl(['m-standarisasi-indikator']) ? 'active' : ''"
-                                        >
-                                            <MenuBullet />
-                                            <span class="menu-title">Database Indikator</span>
-                                        </router-link>
-
-                                        <router-link 
-                                            :to="{ name: 'm-standarisasi-pertanyaan' }" 
-                                            class="menu-link py-3" 
-                                            :class="isCurrentUrl(['m-standarisasi-pertanyaan']) ? 'active' : ''"
-                                        >
-                                            <MenuBullet />
-                                            <span class="menu-title">Database Pertanyaan</span>
-                                        </router-link>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- Standarisasi Puspaga -->
-                            <!-- <div class="menu-item">
-                                <router-link 
-                                    :to="{ name: 'standarisasi-puspaga' }" 
-                                    class="menu-link py-3" 
-                                    v-if="isSpecificHaveAccessMenu([ROLE_ADMIN_ID, ROLE_KONSELOR_ID, ROLE_SUBKORD_ID, ROLE_KABID_ID, ROLE_KECAMATAN_ID])" 
-                                    :class="isCurrentUrl(['standarisasi-puspaga']) ? 'active' : ''"
-                                >
-                                    <MenuBullet />
-                                    <span class="menu-title">Standarisasi Puspaga</span>
-                                </router-link>
-                            </div>
-                        </div>
-                    </div> -->
+                            <span class="menu-title">Tamu Puspaga</span>
+                        </router-link>
+                    </div>
 
                     <div class="menu-item" v-if="isSpecificHaveAccessMenu([ROLE_KONSELOR_ID])">
                         <router-link :to="{name: 'rumah-perubahan'}" class="menu-link py-3" :class="isCurrentUrl(['rumah-perubahan']) ? 'active' : ''">
@@ -456,11 +384,6 @@
                         </router-link>
                     </div>
 
-=======
-                            <span class="menu-title">Tamu Puspaga</span>
-                        </router-link>
-                    </div>
->>>>>>> Stashed changes
                     <div class="menu-item" v-if="isSpecificHaveAccessMenu([ROLE_KLIEN_ID, ROLE_KONSELOR_ID, ROLE_MAHASISWA_ID, ROLE_PSIKOLOG_ID])">
                         <router-link :to="{name: 'elearning-puspaga'}" class="menu-link py-3" :class="isCurrentUrl(['elearning-puspaga', 'elearningpuspaga-kategori', 'elearningpuspaga-subkategori', 'elearningpuspaga-riwayatlatihansoal', 'elearningpuspaga-materi-modul', 'elearningpuspaga-materi-video', 'elearningpuspaga-hasillatihansoal']) ? 'active' : ''">
                             <span class="menu-icon">

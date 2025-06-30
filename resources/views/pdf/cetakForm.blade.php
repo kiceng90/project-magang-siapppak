@@ -133,6 +133,35 @@
 
         <table class="table-print">
             <tbody>
+                @if ($layanan->rujukan_id != null)
+                    <tr>
+                        <td colspan="3" style="text-align: center">
+                            <b>SURAT RUJUKAN PUSPAGA</b>
+                            <p style="margin: 5px 0; font-weight: bold">
+                                KEPADA LEMBAGA/INSTANSI LAYANAN (mengambil
+                                dari Tujuan Lembaga Rujukan)
+                            </p>
+                            <div
+                                style="
+                                        margin-top: 10px;
+                                        text-align: justify;
+                                    ">
+                                <p>
+                                    PUSPAGA adalah singkatan dari Pusat
+                                    Pembelajaran Keluarga, sebuah lembaga
+                                    yang menyediakan beragam layanan untuk
+                                    meningkatkan kualitas keluarga dalam
+                                    mewujudkan kesetaraan gender dan hak
+                                    anak. Layanan ini diberikan dalam
+                                    prinsip satu pintu secara holistik dan
+                                    integratif. PUSPAGA kami berdiri di
+                                    tingkat Kota Surabaya sejak tahun 2017.
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
+
                 <tr>
                     <td colspan="3"><b>DATA PENGUNJUNG</b></td>
                 </tr>
@@ -204,6 +233,22 @@
                     <td width="4%" class="text-center">:</td>
                     <td>{{ $layanan->provinsi }}</td>
                 </tr>
+                @if ($layanan->rujukan_id != null)
+                    <tr>
+                        <td colspan="3" style="text-align: center">
+                            <div
+                                style="
+                                        margin-top: 10px;
+                                        text-align: center;
+                                    ">
+                                <p>
+                                    Demikian surat kami sampaikan. Atas bantuan dan kerjasamanya, kami ucapkan terima
+                                    kasih.
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
             </tbody>
         </table>
 
@@ -251,8 +296,8 @@
                             <td width="30%">Jadwal Telekonsultasi</td>
                             <td width="4%" class="text-center">:</td>
                             <td>{{ app()->make('App\Http\Controllers\API\BukuTamuController')->getJam($layanan->telekonsultasi_jadwal) }},
-                            {{ app()->make('App\Http\Controllers\API\BukuTamuController')->getHari($layanan->telekonsultasi_jadwal) }}, 
-                            {{ app()->make('App\Http\Controllers\API\BukuTamuController')->getTanggal($layanan->telekonsultasi_jadwal) }}
+                                {{ app()->make('App\Http\Controllers\API\BukuTamuController')->getHari($layanan->telekonsultasi_jadwal) }},
+                                {{ app()->make('App\Http\Controllers\API\BukuTamuController')->getTanggal($layanan->telekonsultasi_jadwal) }}
                             </td>
                         </tr>
                         <tr>

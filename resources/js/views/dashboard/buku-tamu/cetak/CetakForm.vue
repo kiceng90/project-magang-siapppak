@@ -93,11 +93,40 @@
                         </tr>
                     </tbody>
                 </table>
+
                 <table
                     class="table-print table-bordered"
                     style="margin-top: 25px"
                 >
                     <tbody>
+                        <tr v-if="layananBukuTamu.rujukan_id !== null">
+                            <td colspan="3" style="text-align: center">
+                                <b>SURAT RUJUKAN PUSPAGA</b>
+                                <p style="margin: 5px 0; font-weight: bold">
+                                    KEPADA LEMBAGA/INSTANSI LAYANAN (mengambil
+                                    dari Tujuan Lembaga Rujukan)
+                                </p>
+                                <div
+                                    style="
+                                        margin-top: 10px;
+                                        text-align: justify;
+                                    "
+                                >
+                                    <p>
+                                        PUSPAGA adalah singkatan dari Pusat
+                                        Pembelajaran Keluarga, sebuah lembaga
+                                        yang menyediakan beragam layanan untuk
+                                        meningkatkan kualitas keluarga dalam
+                                        mewujudkan kesetaraan gender dan hak
+                                        anak. Layanan ini diberikan dalam
+                                        prinsip satu pintu secara holistik dan
+                                        integratif. PUSPAGA kami berdiri di
+                                        tingkat Kota Surabaya sejak tahun 2017.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td colspan="3"><b>DATA PENGUNJUNG</b></td>
                         </tr>
@@ -167,6 +196,22 @@
                             <td width="30%">Provinsi</td>
                             <td width="4%" class="text-center">:</td>
                             <td>{{ layananBukuTamu.provinsi }}</td>
+                        </tr>
+                        <tr v-if="layananBukuTamu.rujukan_id !== null">
+                            <td colspan="3" style="text-align: center">
+                                <div
+                                    style="
+                                        margin-top: 10px;
+                                        text-align: center;
+                                    "
+                                >
+                                    <p>
+                                        Demikian surat kami sampaikan. Atas
+                                        bantuan dan kerjasamanya, kami ucapkan
+                                        terima kasih.
+                                    </p>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

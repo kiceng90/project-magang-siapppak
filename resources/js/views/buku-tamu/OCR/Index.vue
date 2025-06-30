@@ -477,26 +477,38 @@ export default {
                 const response = await Api().get(`public/buku-tamu-OCR/${id}`);
                 const data = response.data.data;
 
-                const jk = (data.jenis_kelamin || "").toUpperCase();
-                data.jenis_kelamin =
-                    jk === "LAKI-LAKI"
-                        ? { id: "Laki-laki", text: "Laki-laki" }
-                        : jk === "PEREMPUAN"
-                        ? { id: "Perempuan", text: "Perempuan" }
-                        : null;
-
+                // Pertama, isi semua data kecuali jenis_kelamin
                 this.ktp = {
                     ...data,
+                    alamat_ktp: data.alamat_ktp || "",
+                    rt_ktp: data.rt_ktp || "",
+                    rw_ktp: data.rw_ktp || "",
                     tanggal_lahir: data.tanggal_lahir
                         ? new Date(data.tanggal_lahir).toLocaleDateString(
                               "en-CA"
                           )
                         : "",
-
                     foto_ktp: null,
                 };
+
+                // Set preview foto KTP
                 this.previewFotoKTP =
                     data.foto_ktp_url || data.foto_ktp || null;
+
+                // Terakhir, tangani jenis_kelamin secara terpisah
+                // Ini dilakukan setelah semua data lain sudah di-assign
+                if (data.jenis_kelamin) {
+                    const jk = data.jenis_kelamin.toUpperCase();
+                    this.ktp.jenis_kelamin =
+                        jk === "LAKI-LAKI"
+                            ? { id: "Laki-laki", text: "Laki-laki" }
+                            : jk === "PEREMPUAN"
+                            ? { id: "Perempuan", text: "Perempuan" }
+                            : {};
+                } else {
+                    // Jika null, tetapkan objek kosong yang valid untuk komponen
+                    this.ktp.jenis_kelamin = {};
+                }
             } catch (error) {
                 this.$axiosHandleError(error);
             }

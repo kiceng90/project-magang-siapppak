@@ -27,7 +27,7 @@ class BukuTamuExport implements FromCollection, WithHeadings, WithEvents, WithCo
 
             return [
                 'No' => $key + 1,
-                'NIK' => $item->nik . '‎', 
+                'NIK' => $item->nik . '‎',
                 'Nama' => $item->nama,
                 'Tempat Lahir' => $item->tempat_lahir,
                 'Tanggal Lahir' => \Carbon\Carbon::parse($item->tanggal_lahir)->format('d-F-Y'),
@@ -46,7 +46,8 @@ class BukuTamuExport implements FromCollection, WithHeadings, WithEvents, WithCo
                 'Disposisi' => $item->disposisi ? 'Segera Tindaklanjuti' : 'Segera Tindaklanjuti dengan ketentuan',
                 'Kebutuhan Layanan' => $kebutuhanLayanan,
                 'Detail Layanan' => $layananStatus,
-                'Tanggal Daftar' => round(25569 + strtotime($item->created_at) / 86400, 0),
+                'Tanggal Daftar' => $item->created_at->format('Y-m-d H:i:s')
+                /* round(25569 + strtotime($item->created_at) / 86400, 0) */,
             ];
         });
     }
@@ -75,7 +76,7 @@ class BukuTamuExport implements FromCollection, WithHeadings, WithEvents, WithCo
             'Kebutuhan Layanan',
             'Detail Layanan',
             'Tanggal Daftar/Layanan',
-            
+
         ];
     }
 
@@ -90,7 +91,7 @@ class BukuTamuExport implements FromCollection, WithHeadings, WithEvents, WithCo
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $lastColumn = 'U'; 
+                $lastColumn = 'U';
                 $event->sheet->getStyle('A1:' . $lastColumn . '1')->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [

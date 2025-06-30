@@ -26,11 +26,11 @@ class CreateAbsensiKelasCatinTable extends Migration
             $table->string('pendidikan_terakhir');
             $table->enum('metode', ['Online', 'Offline']);
             $table->string('alamat_email')->nullable();
-            $table->string('unggah_ktp')->nullable(); // Base64 atau path file
-            $table->string('unggah_foto')->nullable(); // Base64 atau path file
+            $table->string('unggah_ktp')->nullable(); 
+            $table->string('unggah_foto')->nullable(); 
             $table->text('rating_kegiatan')->nullable();
             $table->text('kritik_saran')->nullable();
-            $table->string('tanda_tangan')->nullable(); // Base64 tanda tangan
+            $table->string('tanda_tangan')->nullable(); 
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

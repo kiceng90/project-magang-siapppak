@@ -29,7 +29,7 @@ class CreateAbsensiKegiatanTable extends Migration
             $table->string('nomor_hp');
             $table->string('pendidikan_terakhir');
             $table->enum('metode', ['Online', 'Offline']);
-            $table->string('anda_adalah')-jenis>nullable();
+            $table->string('anda_adalah')->nullable();
             $table->string('instansi')->nullable();
             $table->string('alamat_instansi')->nullable();
             $table->string('kecamatan_instansi')->nullable();
